@@ -31,6 +31,7 @@ RUN apt-get -y update && \
 # Verify docker image
   /opt/jdk/bin/java -version 2>&1 | grep "1.8"
 
+ADD test /
 ENV JAVA_HOME /opt/jdk/jre
 ENV PATH $PATH:$JAVA_HOME/bin
 CMD ["/bin/bash"]
