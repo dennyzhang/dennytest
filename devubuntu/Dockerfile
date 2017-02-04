@@ -20,7 +20,5 @@ FROM denny/sshd:v1
 MAINTAINER DennyZhang.com <http://dennyzhang.com>
 
 ########################################################################################
-apt-get update
-apt-get install -y lsof vim strace ltrace tmux curl tar telnet
-apt-get install -y software-properties-common python-software-properties tree
+RUN apt-get update
 ########################################################################################
