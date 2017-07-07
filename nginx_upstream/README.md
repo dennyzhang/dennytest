@@ -1,12 +1,15 @@
 docker-compose up -d
 
+docker exec -it proxy ifconfig | grep inet
+docker exec -it jenkins ip a | grep inet
+
 docker exec -it proxy sh
 vi /etc/nginx/nginx.conf
 
 | Name                    | Summary                                 |
 |-------------------------+-----------------------------------------|
 | Query Jenkins directly  | curl -I http://172.21.0.1:8080/         |
-| Query proxy             | curl -I http://172.21.0.1:8082/         |
+| Query nginx proxy       | curl -I http://172.21.0.1:8082/         |
 | Query Jenkins via proxy | curl -I http://172.21.0.1:8082/jenkins/ |
 
 # Testcase1: nginx detect upstream failure
