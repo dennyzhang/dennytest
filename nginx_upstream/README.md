@@ -33,6 +33,7 @@ nginx: [emerg] host not found in upstream "jenkins:8080" in /etc/nginx/nginx.con
 2. docker stop jenkins
 3. docker stop proxy
 4. docker start proxy
+5. docker-compose ps; docker-compose logs proxy
 
 proxy container fail to start
 ```
