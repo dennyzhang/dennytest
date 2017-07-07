@@ -1,7 +1,7 @@
 version: '2'
 services:
-  proxy:
-    container_name: proxy
+  proxy_test:
+    container_name: proxy_test
     image: nginx:alpine
     ports:
       - "8082:80/tcp"
@@ -9,8 +9,8 @@ services:
     - $PWD/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - jenkins
-  jenkins:
-    container_name: jenkins
+  jenkins_test:
+    container_name: jenkins_test
     image: jenkins:2.46.3
     entrypoint: ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
     ports:
