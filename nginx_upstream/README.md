@@ -32,11 +32,13 @@ nginx: [emerg] host not found in upstream "jenkins:8080" in /etc/nginx/nginx.con
 ```
 
 # Testcase3: Be tolerant for some servers in upstream is unavailable
-1. docker-compose up -d
-2. docker stop jenkins
-3. docker stop proxy
-4. docker start proxy
-5. docker-compose ps; docker-compose logs proxy
+1. docker-compose up -d; docker-compose ps
+2. docker exec -it jenkins ip a | grep inet
+3. docker stop jenkins jenkins2
+4. docker start jenkins2 jenkins
+5. docker exec -it jenkins ip a | grep inet
+6. docker exec -it proxy ping jenkins
+7. curl -I http://172.21.0.1:8082/jenkins/
 
 proxy container fail to start
 ```
