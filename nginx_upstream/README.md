@@ -9,7 +9,7 @@ vi /etc/nginx/nginx.conf
 | Query proxy             | curl -I http://172.21.0.1:8082/         |
 | Query Jenkins via proxy | curl -I http://172.21.0.1:8082/jenkins/ |
 
-# Testcase1
+# Testcase1: nginx detect upstream failure
 
 1. docker-compose up -d
 2. docker stop jenkins
@@ -17,7 +17,7 @@ vi /etc/nginx/nginx.conf
 
 curl request will hang, when it hit the jenkins upstream. After quite a while, it will know jenkins upstream is unavailable.
 
-# Testcase2
+# Testcase2: when any upstream is not running, nginx will run into "host not found in upstream" error
 1. docker-compose up -d
 2. docker stop jenkins
 3. docker stop proxy
