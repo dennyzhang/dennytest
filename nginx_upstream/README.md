@@ -27,3 +27,14 @@ proxy container fail to start
 ```
 nginx: [emerg] host not found in upstream "jenkins:8080" in /etc/nginx/nginx.conf:33
 ```
+
+# Testcase3: Be tolerant for some servers in upstream is unavailable
+1. docker-compose up -d
+2. docker stop jenkins
+3. docker stop proxy
+4. docker start proxy
+
+proxy container fail to start
+```
+nginx: [emerg] host not found in upstream "jenkins:8080" in /etc/nginx/nginx.conf:33
+```
