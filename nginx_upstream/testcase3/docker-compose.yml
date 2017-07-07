@@ -8,7 +8,7 @@ services:
     volumes:
     - $PWD/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - jenkins
+      - jenkins_test
     # extra_hosts:
     # - "jenkins:172.24.0.5"
   jenkins_test:
