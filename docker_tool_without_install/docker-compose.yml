@@ -5,8 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile1
+    entrypoint: ["tail", "-f", "/dev/null"]
   container2:
     container_name: container2
     build:
       context: .
       dockerfile: Dockerfile2
+    entrypoint: ["tail", "-f", "/dev/null"]
