@@ -1,0 +1,12 @@
+version: '2'
+services:
+  container1:
+    container_name: container1
+    build:
+      context: .
+      dockerfile: Dockerfile1
+  container2:
+    container_name: container2
+    build:
+      context: .
+      dockerfile: Dockerfile2
