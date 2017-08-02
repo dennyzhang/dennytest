@@ -2,12 +2,13 @@ version: '2'
 services:
   container1:
     container_name: container1
+    hostname: container1
     build:
       context: .
       dockerfile: Dockerfile1
-    entrypoint: ["tail", "-f", "/dev/null"]
   container2:
     container_name: container2
+    hostname: container2
     build:
       context: .
       dockerfile: Dockerfile2

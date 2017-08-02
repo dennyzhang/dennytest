@@ -1,0 +1,8 @@
+version: '2'
+services:
+  container1:
+    container_name: container1
+    image: nginx:alpine
+  container2:
+    container_name: container2
+    image: nginx:alpine

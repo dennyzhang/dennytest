@@ -1,1 +1,1 @@
-From ubuntu:14.04
+FROM nginx:alpine
