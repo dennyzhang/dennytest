@@ -6,5 +6,7 @@ services:
   prometheus:
     container_name: prometheus
     image: prom/prometheus
+    volumes:
+    - $PWD/docker-compose.yml:/etc/docker-compose.yml:rw
     ports:
     - 9090:9090
