@@ -1,0 +1,10 @@
+version: '2'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    ports:
+    - 9090:9090
