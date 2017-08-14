@@ -3,10 +3,8 @@ services:
   nginx:
     container_name: nginx
     image: nginx:alpine
-  prometheus:
-    container_name: prometheus
-    image: prom/prometheus
-    volumes:
-    - $PWD/docker-compose.yml:/etc/docker-compose.yml:rw
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-    - 9090:9090
+      - 8081:80
