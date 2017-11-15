@@ -4,12 +4,12 @@
 ## Licensed under MIT
 ##   https://www.dennyzhang.com/wp-content/mit_license.txt
 ##
-## File: test.py
-## Author : Denny <contact@dennyzhang.com>
+## File: lambda_function.py
+## Author : Denny <https://www.dennyzhang.com/contact>
 ## Description :
 ## --
 ## Created : <2017-10-16>
-## Updated: Time-stamp: <2017-10-16 20:20:55>
+## Updated: Time-stamp: <2017-11-13 11:00:54>
 ##-------------------------------------------------------------------
 import requests, json
 import os
@@ -54,4 +54,4 @@ if __name__ == '__main__':
     fake_event={}
     fake_event["msg"] = "hello, world"
     lambda_handler(fake_event, "fake_context")
-## File: test.py ends
+## File: lambda_function.py ends

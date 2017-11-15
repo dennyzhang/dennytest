@@ -5,11 +5,11 @@
 ##   https://www.dennyzhang.com/wp-content/mit_license.txt
 ##
 ## File: __init__.py
-## Author : Denny <contact@dennyzhang.com>
+## Author : Denny <https://www.dennyzhang.com/contact>
 ## Description :
 ## --
 ## Created : <2017-10-16>
-## Updated: Time-stamp: <2017-10-16 22:21:23>
+## Updated: Time-stamp: <2017-11-13 11:00:54>
 ##-------------------------------------------------------------------
 
 ## File: __init__.py ends
