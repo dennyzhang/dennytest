@@ -11,8 +11,14 @@ docker-compose build
 
 docker-compose up -d
 
-# We will see two containers: syslog-dummy-server and dummy-container
 docker-compose ps
+# ,----------- Sample Output
+# | bash-3.2$ docker-compose ps
+# |        Name                Command         State                 Ports               
+# | -------------------------------------------------------------------------------------
+# | dummy-container       /root/start.sh       Up                                        
+# | syslog-dummy-server   /srv/tcp-to-stdout   Up      0.0.0.0:12346->12346/tcp, 8080/tcp
+# `-----------
 
 # Check syslog-server, we will see one dummy log
 docker logs --tail 10 syslog-dummy-server
