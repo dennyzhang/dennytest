@@ -1,0 +1,21 @@
+version: "3.3"
+services:
+  syslog-dummy-server:
+    container_name: "syslog-dummy-server"
+    image: jasonkeene/tcp-to-stdout
+    environment:
+      ADDR: :12346
+    ports:
+      - "12346:12346"
+  dummy-container:
+    container_name: "dummy-container"
+    build: .
+    # Run code build to get latest out_syslog.so: ./build-code.sh
+    command: /root/start.sh
+    depends_on:
+      - syslog-dummy-server
+    logging:
+      driver: syslog
+      options:
+        # 192.168.99.1 is supposed to be your docker daemon ip
+        syslog-address: tcp://192.168.99.1:12346
