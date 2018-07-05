@@ -15,7 +15,7 @@ docker-compose up -d
 docker-compose ps
 
 # Check syslog-server, we will see one dummy log
-docker logs syslog-dummy-server
+docker logs --tail 10 syslog-dummy-server
 
 # Sample Output:
 # ,-----------
