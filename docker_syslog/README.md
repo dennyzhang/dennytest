@@ -11,6 +11,7 @@ docker-compose build
 
 docker-compose up -d
 
+# dummy-container will generate dummy stdout, which will be sent to syslog-dummy-server automatically
 docker-compose ps
 # ,----------- Sample Output
 # | bash-3.2$ docker-compose ps
