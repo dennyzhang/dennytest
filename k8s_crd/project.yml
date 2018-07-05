@@ -4,4 +4,4 @@ metadata:
   name: "example-project"
   namespace: "default"
 spec:
-  replicas: 1
+  replicas: 2
