@@ -1,4 +1,5 @@
-# Suggested package: Logrus
+# Suggested Golang package: Logrus
+https://github.com/sirupsen/logrus
 
 ```
 go get "github.com/sirupsen/logrus"
