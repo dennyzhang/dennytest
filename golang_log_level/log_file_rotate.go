@@ -8,7 +8,7 @@
 // Description : go run log_basic.go
 // --
 // Created : <2018-04-07>
-// Updated: Time-stamp: <2018-07-09 16:01:38>
+// Updated: Time-stamp: <2018-07-09 16:09:05>
 //-------------------------------------------------------------------
 package main
 
@@ -21,7 +21,12 @@ import (
 // https://github.com/sirupsen/logrus
 func log_init() {
 	log.SetOutput(os.Stdout)
-	log.SetOutput(os.Stdout)
+	file, err := os.OpenFile("/tmp/output.log", os.O_CREATE|os.O_WRONLY, 0666)
+	if err == nil {
+		log.SetOutput(file)
+	} else {
+		log.Info("Failed to log to file, using default stderr")
+	}
 
 	log.SetLevel(log.InfoLevel)
 	// If changing log level to Debug, we will see two log message
@@ -30,6 +35,7 @@ func log_init() {
 
 func main() {
 	log_init()
+	fmt.Println("Check log in /tmp/output*.log")
 	contextLogger := log.WithFields(log.Fields{"app": "test"})
 	contextLogger.Info("Info msg")
 	contextLogger.Debug("warn msg")
