@@ -12,7 +12,7 @@ go get "github.com/sirupsen/logrus"
 | Logging to file with log rotation enforced | [log_file_rotate.go](log_file_rotate.go) Then `ls -lth /tmp/output*.txt` |
 
 
-# Discusssions For possible Candiates:
+# Discusssions For possible Candiates
 
 - Logrus (logging): https://github.com/sirupsen/logrus
 
