@@ -33,3 +33,7 @@ kubectl describe project example-project
 ```
 
 https://github.com/martin-helmich/kubernetes-crd-example
+
+https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition
+
+Extend the Kubernetes API with CustomResourceDefinitions - Kubernetes

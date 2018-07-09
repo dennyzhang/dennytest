@@ -2,7 +2,7 @@ Customize docker log driver to use syslog
 
 Read link:
 - https://docs.docker.com/config/containers/logging/syslog/
-- https://docs.docker.com/compose/compose-file/
+- https://docs.docker.com/compose/compose-file/#logging
 
 # How To Test
 
