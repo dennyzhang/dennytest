@@ -8,7 +8,7 @@
 // Description : go run log_basic.go
 // --
 // Created : <2018-04-07>
-// Updated: Time-stamp: <2018-07-09 16:06:13>
+// Updated: Time-stamp: <2018-07-09 16:20:02>
 //-------------------------------------------------------------------
 package main
 
@@ -38,6 +38,6 @@ func main() {
 	fmt.Println("Check log in /tmp/output.log")
 	contextLogger := log.WithFields(log.Fields{"app": "test"})
 	contextLogger.Info("Info msg")
-	contextLogger.Debug("warn msg")
+	contextLogger.Debug("Warn msg")
 }
 // File: log_basic.go ends
