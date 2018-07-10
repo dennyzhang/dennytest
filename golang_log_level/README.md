@@ -9,7 +9,7 @@ go get "github.com/sirupsen/logrus"
 |:------------|-------------|
 | Logging with different level | [log_basic.go](log_basic.go) |
 | Logging to file | [log_file.go](log_file.go). Then `ls -lth /tmp/output.txt` |
-| Logging to file with log rotation enforced | [log_file_rotate.go](log_file_rotate.go) Then `ls -lth /tmp/output*.txt` |
+| Logging to file with log rotation enforced | Not implemented yet: [log_file_rotate.go](log_file_rotate.go) Then `ls -lth /tmp/output*.txt` |
 
 
 # Discusssions For possible Candiates
