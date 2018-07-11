@@ -1,11 +1,11 @@
 # Summary
 
-This example shows how to build golang docker image in a reproducible way. Meanwhile keep the target image as small as possible
+This example shows how to we build golang docker image
 
 Highlights:
-1. We use docker multi-stage builds to make the target image clean
-2. We go dep to make sure we download specific go depenecies, instead of always the head.
-
+1. Reproducible: don't rely on anything local
+2. Use docker multi-stage builds to make the target image clean
+3. Avoid always dowload latest go depenecies by using `go dep`
 
 # How To Test
 ```
@@ -27,6 +27,14 @@ docker exec my-test ls -lth
 ## | drwxrwxrwx 2 root root 4.0K Jun 27 22:23 bin
 ## | drwxrwxrwx 2 root root 4.0K Jun 27 22:23 src
 ## `-----------
+
+# In Dockerfile, if we change base image from golang:latest to scratch, the image size will change from 809MB to 15MB
+## ,-----------
+## | bash-3.2$ docker images
+## | REPOSITORY                         TAG                 IMAGE ID            CREATED             SIZE
+## | denny/mytest                       v1                  0446d5b9924c        7 minutes ago       809MB
+## `-----------
+## 
 ```
 # More resources
 ```
