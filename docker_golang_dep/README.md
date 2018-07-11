@@ -19,7 +19,7 @@ docker stop my-test; docker rm my-test
 docker run -t -d --privileged -h mytest --name my-test "$docker_image"
 
 docker exec my-test ls -lth
-
+# Here we will see out_syslog.so
 ## ,-----------
 ## | bash-3.2$docker exec my-test ls -lth 
 ## | total 14M
