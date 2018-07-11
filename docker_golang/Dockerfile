@@ -6,6 +6,8 @@
 # Builder image, where we build the example.
 FROM golang:1.9.0 AS builder
 WORKDIR /go/src/github.com/pivotal-cf/
+# Here we copy folder, thus people can test local changes.
+# For real CI workflow, we can use git clone
 COPY . .
 # use go dep to manage package version: https://gist.github.com/subfuzion/12342599e26f5094e4e2d08e9d4ad50d
 RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh && \
