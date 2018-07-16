@@ -82,13 +82,41 @@ service apache2 status
 ```
 
 # Generate log data
+- generate log
 ```
+# hit td agent
 curl -X POST -d 'json={"json":"This is a test message from Fluentd HTTP"}' http://localhost:8888/debug.test
 
+# hit apache
+curl http://localhost
+
+# hit via http
+
+# export API_TOKEN="XXX" # Change this
+
+curl -X POST \
+  https://data.mgmt.cloud.vmware.com/le-mans/v1/streams/ingestion-pipeline-stream \
+  -H "Authorization:Bearer $API_TOKEN" \
+  -H 'Content-Type:application/json' \
+  -H 'structure:default' \
+  -d '[{
+       "text": "Thu, 01 Mar 2018 20:41:42 GMT MyTest Payload-test",
+       "source": "myhost.vmware.com"
+   }]'
 ```
+
+- search log intelligence
+
+search by "test", for td agent log
+
+search by "GET", for apache log
+
+search by "MyTest", for curl log
 
 # Trouble shooting
 
 ```
 /var/log/td-agent/td-agent.log
+
+ls -lth /var/log/apache2/*.log
 ```
