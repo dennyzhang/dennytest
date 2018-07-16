@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syslog-service
+  labels:
+    app: syslog
+spec:
+  type: NodePort
+  ports:
+  - port: 12346
+    targetPort: 12346
+  selector:
+    app: my-syslog
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syslog-deployment
+  labels:
+    app: syslog
+spec:
+  selector:
+    matchLabels:
+      app: syslog
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: syslog
+    spec:
+      containers:
+      - name: syslog-dummy-server
+        image: jasonkeene/tcp-to-stdout
+        ports:
+        - containerPort: 12346
+        env:
+        - name: ADDR
+          value: ":12346"
