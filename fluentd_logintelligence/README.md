@@ -1,11 +1,32 @@
 Table of Contents
 =================
-
+   * [Useful Links](#useful-links)
+   * [Use http to send log](#use-http-to-send-log)
    * [How To Test](#how-to-test)
    * [Generate log data](#generate-log-data)
    * [Trouble shooting](#trouble-shooting)
 
+# Useful Links
+```
 https://cloud.vmware.com/community/2018/07/10/using-fluentd-send-logs-cloud-vmware-log-intelligence/
+
+https://docs.vmware.com/en/VMware-Log-Intelligence/services/User-Guide/GUID-48C6CA73-FA99-42DE-851D-0A7930D08324.html#GUID-48C6CA73-FA99-42DE-851D-0A7930D08324__section_86D3FCA44F6A4D3CA93ACB081DD7B76A
+```
+
+# Use http to send log
+```
+# export API_TOKEN="XXX" # Change this
+
+curl -X POST \
+  https://data.mgmt.cloud.vmware.com/le-mans/v1/streams/ingestion-pipeline-stream \
+  -H "Authorization:Bearer $API_TOKEN" \
+  -H 'Content-Type:application/json' \
+  -H 'structure:default' \
+  -d '[{
+       "text": "Thu, 01 Mar 2018 20:41:42 GMT Test Payload-test",
+       "source": "myhost.vmware.com"
+   }]'
+```
 
 # How To Test
 - start a container
