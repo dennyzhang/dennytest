@@ -1,0 +1,40 @@
+<filter *.**>
+@type record_transformer
+<record>
+hostname ${hostname}
+</record>
+</filter>
+
+<match>
+type http_ext
+endpoint_url         https://data.mgmt.cloud.vmware.com/le-mans/v1/streams/ingestion-pipeline-stream
+http_method           post
+serializer           json
+rate_limit_msec       100
+raise_on_error       false
+raise_on_http_failure true
+authentication       none
+use_ssl               true
+verify_ssl           false
+
+<headers>
+Authorization Bearer <Insert Token from Log Intelligence>
+Content-Type application/json
+format syslog
+structure default
+</headers>
+</match>
+
+<source>
+@type http
+@id input_http
+port 8888
+</source>
+
+<source>
+@type tail
+format apache2
+path /var/log/apache2/access.log
+pos_file /tmp/log/access_log.pos
+tag apache
+</source>

@@ -1,5 +1,13 @@
+Table of Contents
+=================
+
+   * [How To Test](#how-to-test)
+   * [Generate log data](#generate-log-data)
+   * [Trouble shooting](#trouble-shooting)
+
 https://cloud.vmware.com/community/2018/07/10/using-fluentd-send-logs-cloud-vmware-log-intelligence/
 
+# How To Test
 - start a container
 
 ```
@@ -35,6 +43,31 @@ chmod -R 777 /tmp/log
 apt-get install apache2
 
 chmod -R 645 /var/log/apache2
+
+service apache2 start
+
+service apache2 status
 ```
 
 - Configure /etc/td-agent/td-agent.conf
+
+```
+# Overwrite td-agent.conf with td-agent.conf.tmpl
+# Change Authorization Bearer <...> to real token
+
+# restart td-agent
+/etc/init.d/td-agent stop
+/etc/init.d/td-agent start
+```
+
+# Generate log data
+```
+curl -X POST -d 'json={"json":"This is a test message from Fluentd HTTP"}' http://localhost:8888/debug.test
+
+```
+
+# Trouble shooting
+
+```
+/var/log/td-agent/td-agent.log
+```
