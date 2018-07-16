@@ -1,17 +1,10 @@
 Table of Contents
 =================
-   * [Useful Links](#useful-links)
    * [Use http to send log](#use-http-to-send-log)
    * [How To Test](#how-to-test)
    * [Generate log data](#generate-log-data)
    * [Trouble shooting](#trouble-shooting)
-
-# Useful Links
-```
-https://cloud.vmware.com/community/2018/07/10/using-fluentd-send-logs-cloud-vmware-log-intelligence/
-
-https://docs.vmware.com/en/VMware-Log-Intelligence/services/User-Guide/GUID-48C6CA73-FA99-42DE-851D-0A7930D08324.html#GUID-48C6CA73-FA99-42DE-851D-0A7930D08324__section_86D3FCA44F6A4D3CA93ACB081DD7B76A
-```
+   * [Useful Links](#useful-links)
 
 # Use http to send log
 ```
@@ -107,11 +100,13 @@ curl -X POST \
 
 - search log intelligence
 
+```
 search by "test", for td agent log
 
 search by "GET", for apache log
 
 search by "MyTest", for curl log
+```
 
 # Trouble shooting
 
@@ -119,4 +114,11 @@ search by "MyTest", for curl log
 /var/log/td-agent/td-agent.log
 
 ls -lth /var/log/apache2/*.log
+```
+
+# Useful Links
+```
+https://cloud.vmware.com/community/2018/07/10/using-fluentd-send-logs-cloud-vmware-log-intelligence/
+
+https://docs.vmware.com/en/VMware-Log-Intelligence/services/User-Guide/GUID-48C6CA73-FA99-42DE-851D-0A7930D08324.html#GUID-48C6CA73-FA99-42DE-851D-0A7930D08324__section_86D3FCA44F6A4D3CA93ACB081DD7B76A
 ```
