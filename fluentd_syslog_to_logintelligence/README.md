@@ -1,6 +1,14 @@
-Use fluentd to create a log forwarder:
+**Use fluentd to create a log forwarder for vmware log intelligence product.**
+
+By default log intelligence accept http protocal.
+
+https://cloud.vmware.com/community/2018/07/10/using-fluentd-send-logs-cloud-vmware-log-intelligence/
+
+This post support you sending log to log intelligence via syslog protocal:
 - input: syslog plugin
 - output: log intelligence http endpoint
+
+Note: this workflow won't give your buffering flush benefit. Thus it won't help on performance side. In vmware world, we will have a more official support from vmware directly.
 
 # How To Test
 
