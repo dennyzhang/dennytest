@@ -34,7 +34,7 @@ docker-compose ps
 ## `-----------
 ```
 
-- Generate log from laptop using rfc5424
+- Generate log from laptop using [rfc5424](https://tools.ietf.org/html/rfc5424)
 ```
 echo "<14>1 2017-02-28T12:00:00.009Z 192.168.0.1 denny - - - Hello." | nc localhost 40012
 ```
