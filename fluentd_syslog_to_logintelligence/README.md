@@ -30,7 +30,9 @@ echo "<14>1 2017-02-28T12:00:00.009Z 192.168.0.1 denny - - - Hello." | nc localh
 ```
 
 - Check syslog output
+```
 docker-compose logs -f fluentd-syslog-li
+```
 
 - Go to log intelligence dashboard, then search pattern of `denny`
 
