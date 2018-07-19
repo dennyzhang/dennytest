@@ -5,7 +5,8 @@ Table of Contents
    * [Check etcd data folder in minikube](#check-etcd-data-folder-in-minikube)
    * [Query etcd](#query-etcd)
    * [Create mysql test](#create-mysql-test)
-   * [Check etcd again for the DB service](#check-etcd-again-for-the-db-service)
+   * [Confirm PV/PVC in etcd](#confirm-pvpvc-in-etcd)
+   * [Query etcd for pv and pvc info](#query-etcd-for-pv-and-pvc-info)
    * [Useful link](#useful-link)
 
 Explore what data is stored in kubernetes etcd
