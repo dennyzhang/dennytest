@@ -6,7 +6,7 @@ Use fluentd to create a log forwarder:
 
 - Update log intelligence token in fluent.conf
 
-From `    Authorization Bearer CHANGETHIS` to real token
+Search and change `    Authorization Bearer CHANGETHIS` to real token.
 
 ```
 # build image to install fluentd http-ext output plugin
@@ -27,7 +27,7 @@ docker-compose logs -f fluentd-syslog-li
 
 - Go to log intelligence dashboard, then search pattern of `denny`
 
-[images/log_intelligence.png](images/log_intelligence.png)
+![images/log_intelligence.png](images/log_intelligence.png)
 
 # More Debugging
 ```
