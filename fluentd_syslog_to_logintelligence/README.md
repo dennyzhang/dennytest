@@ -15,6 +15,13 @@ docker-compose build
 # Start env & Generate log
 docker-compose up -d
 docker-compose ps
+
+## ,----------- Sample Output
+## | bash-3.2$ docker-compose ps
+## |       Name                     Command               State                       Ports                    
+## | ----------------------------------------------------------------------------------------------------------
+## | fluentd-syslog-li   /bin/entrypoint.sh /bin/sh ...   Up      24224/tcp, 0.0.0.0:40012->40012/tcp, 5140/tcp
+## `-----------
 ```
 
 - Generate log from laptop using rfc5424
