@@ -45,8 +45,3 @@ docker-compose logs -f fluentd-syslog-li
 - Go to log intelligence dashboard, then search pattern of `denny`
 
 ![images/log_intelligence.png](images/log_intelligence.png)
-
-# More Debugging
-```
-docker exec -it fluentd-syslog-li sh
-```

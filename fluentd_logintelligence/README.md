@@ -123,4 +123,3 @@ https://cloud.vmware.com/community/2018/07/10/using-fluentd-send-logs-cloud-vmwa
 https://docs.vmware.com/en/VMware-Log-Intelligence/services/User-Guide/GUID-48C6CA73-FA99-42DE-851D-0A7930D08324.html#GUID-48C6CA73-FA99-42DE-851D-0A7930D08324__section_86D3FCA44F6A4D3CA93ACB081DD7B76A
 
 https://fluentbit.io/documentation/0.13/output/http.html
-
