@@ -1,9 +1,12 @@
 version: "3.3"
 services:
   fluentd-syslog-li:
+    build:
+      context: .
     container_name: "fluentd-syslog-li"
-    image: fluent/fluentd:v1.2
+    # entrypoint: ["tail", "-f", "/dev/null"]
     volumes:
       - ${PWD}/fluent.conf:/fluentd/etc/fluent.conf
     ports:
       - "40012:40012"
+      # - "40012:40012/udp"
