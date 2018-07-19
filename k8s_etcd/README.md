@@ -125,7 +125,6 @@ kubectl get pod -n ns-test
 ## | NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                STORAGECLASS   REASON    AGE
 ## | mysql001                                   5Gi        RWO            Retain           Available                                                 27m
 ## | pvc-5a949e51-8b11-11e8-a8c8-080027cbaea4   5Gi        RWO            Delete           Bound       ns-test/mysql001-1   standard                 27m
-## | bash-3.2$ 
 ## `-----------
 ```
 
@@ -238,7 +237,7 @@ ETCDCTL_API=3 $command_prefix get /registry/persistentvolumeclaims/ns-test/mysql
 ## | Active"/ #
 ## `-----------
 ```
-From above, we have confirmed whether we create PV or PVC, k8s will store the metatdata in etcd.
+From above, we have confirmed whenever we create PV or PVC, k8s will store the metatdata in etcd.
 
 # Useful link
 
