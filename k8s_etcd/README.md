@@ -66,6 +66,7 @@ docker ps | grep etcd
 docker exec -it ec52f93666d2 sh
 
 # Run sample query: member list
+
 command_prefix="etcdctl --endpoints 127.0.0.1:2379 --cacert /var/lib/localkube/certs/etcd/ca.crt --cert /var/lib/localkube/certs/etcd/peer.crt --key /var/lib/localkube/certs/etcd/peer.key"
 ETCDCTL_API=3 $command_prefix member list
 ## ,----------- Sample Output
@@ -76,8 +77,8 @@ ETCDCTL_API=3 $command_prefix member list
 
 # https://kubernetes-v1-4.github.io/docs/admin/etcd/
 # By default, Kubernetes objects are stored under the /registry key in etcd.
-ETCDCTL_API=3 $command_prefix get /registry/namespaces/default -w=json
 
+ETCDCTL_API=3 $command_prefix get /registry/namespaces/default -w=json
 ## ,----------- Sample Ouptut
 ## | / # ETCDCTL_API=3 $command_prefix get /registry/namespaces/default -w=json
 ## | 2018-07-19 04:58:49.768085 I | warning: ignoring ServerName for user-provided CA for backwards compatibility is deprecated
@@ -110,25 +111,140 @@ kubectl get pod -n ns-test
 ## `-----------
 ```
 
-# Check etcd again for the DB service
 
-```
-command_prefix="etcdctl --endpoints 127.0.0.1:2379 --cacert /var/lib/localkube/certs/etcd/ca.crt --cert /var/lib/localkube/certs/etcd/peer.crt --key /var/lib/localkube/certs/etcd/peer.key"
-ETCDCTL_API=3 $command_prefix get /registry/namespaces/ns-test -w=json
-
-## ,----------- Sample Output
-## | / # ETCDCTL_API=3 $command_prefix get /registry/namespaces/ns-test -w=json
-## | 2018-07-19 05:07:36.115210 I | warning: ignoring ServerName for user-provided CA for backwards compatibility is deprecated
-## | {"header":{"cluster_id":14841639068965178418,"member_id":10276657743932975437,"revision":267495,"raft_term":3},"kvs":[{"key":"L3JlZ2lzdHJ5L25hbWVzcGFjZXMvbnMtdGVzdA==","create_revision":267291,"mod_revision":267291,"version":1,"value":"azhzAAoPCgJ2MRIJTmFtZXNwYWNlEvwBCuEBCgducy10ZXN0EgAaACIAKiQ1YTgxNWQyYy04YjExLTExZTgtYThjOC0wODAwMjdjYmFlYTQyADgAQggImLjA2gUQAGKZAQowa3ViZWN0bC5rdWJlcm5ldGVzLmlvL2xhc3QtYXBwbGllZC1jb25maWd1cmF0aW9uEmV7ImFwaVZlcnNpb24iOiJ2MSIsImtpbmQiOiJOYW1lc3BhY2UiLCJtZXRhZGF0YSI6eyJhbm5vdGF0aW9ucyI6e30sIm5hbWUiOiJucy10ZXN0IiwibmFtZXNwYWNlIjoiIn19CnoAEgwKCmt1YmVybmV0ZXMaCAoGQWN0aXZlGgAiAA=="}],"count":1}
+``` Sample Output
+## ,-----------
+## | bash-3.2$ kubectl get pvc -n ns-test
+## | NAME         STATUS    VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+## | mysql001-1   Bound     pvc-5a949e51-8b11-11e8-a8c8-080027cbaea4   5Gi        RWO            standard       25m
 ## `-----------
 
+## ,-----------
+## | bash-3.2$ kubectl get pv
+## | NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                STORAGECLASS   REASON    AGE
+## | mysql001                                   5Gi        RWO            Retain           Available                                                 27m
+## | pvc-5a949e51-8b11-11e8-a8c8-080027cbaea4   5Gi        RWO            Delete           Bound       ns-test/mysql001-1   standard                 27m
+## | bash-3.2$ 
+## `-----------
 ```
+
+# Confirm PV/PVC in etcd
+
+```
+ETCDCTL_API=3 $command_prefix get /registry --prefix -w=json > /tmp/test.json
+
+# Copy /tmp/test.json to local
+keys=$(cat /tmp/test.json | python -m json.tool|grep key|cut -d ":" -f2|tr -d '"'|tr -d ",")
+for x in $keys;do
+  echo $x | base64 -D| sort | grep persist
+done
+
+## ,----------- Sample Output
+## |> > /registry/clusterrolebindings/system:controller:persistent-volume-binder
+## |/registry/clusterroles/system:controller:persistent-volume-binder
+## |/registry/clusterroles/system:persistent-volume-provisioner
+## |/registry/persistentvolumeclaims/ns-test/mysql001-1
+## |/registry/persistentvolumes/mysql001
+## |/registry/persistentvolumes/pvc-5a949e51-8b11-11e8-a8c8-080027cbaea4
+## |/registry/secrets/kube-system/persistent-volume-binder-token-zfxjl
+## |/registry/serviceaccounts/kube-system/persistent-volume-binder
+## `-----------
+```
+
+# Query etcd for pv and pvc info
+
+- check pv
+```
+ETCDCTL_API=3 $command_prefix get /registry/persistentvolumes/mysql001 -w=json
+
+## ,----------- Sample Output
+## | / # ETCDCTL_API=3 $command_prefix get /registry/persistentvolumes/mysql001 -w=json
+## | 2018-07-19 05:35:37.199030 I | warning: ignoring ServerName for user-provided CA for backwards compatibility is deprecated
+## | {"header":{"cluster_id":14841639068965178418,"member_id":10276657743932975437,"revision":269343,"raft_term":3},"kvs":[{"key":"L3JlZ2lzdHJ5L3BlcnNpc3RlbnR2b2x1bWVzL215c3FsMDAx","create_revision":267293,"mod_revision":267301,"version":3,"value":"azhzAAoWCgJ2MRIQUGVyc2lzdGVudFZvbHVtZRLzAwqcAwoIbXlzcWwwMDESABoAIgAqJDVhOGJhYzNkLThiMTEtMTFlOC1hOGM4LTA4MDAyN2NiYWVhNDIAOABCCAiYuMDaBRAAWg0KBHR5cGUSBWxvY2FsYqcCCjBrdWJlY3RsLmt1YmVybmV0ZXMuaW8vbGFzdC1hcHBsaWVkLWNvbmZpZ3VyYXRpb24S8gF7ImFwaVZlcnNpb24iOiJ2MSIsImtpbmQiOiJQZXJzaXN0ZW50Vm9sdW1lIiwibWV0YWRhdGEiOnsiYW5ub3RhdGlvbnMiOnt9LCJsYWJlbHMiOnsidHlwZSI6ImxvY2FsIn0sIm5hbWUiOiJteXNxbDAwMSIsIm5hbWVzcGFjZSI6IiJ9LCJzcGVjIjp7ImFjY2Vzc01vZGVzIjpbIlJlYWRXcml0ZU9uY2UiXSwiY2FwYWNpdHkiOnsic3RvcmFnZSI6IjVHaSJ9LCJob3N0UGF0aCI6eyJwYXRoIjoiL2RhdGEvbXlzcWwwMDEifX19CnIba3ViZXJuZXRlcy5pby9wdi1wcm90ZWN0aW9uegASQQoQCgdzdG9yYWdlEgUKAzVHaRIUGhIKDi9kYXRhL215c3FsMDAxEgAaDVJlYWRXcml0ZU9uY2UqBlJldGFpbjIAGg8KCUF2YWlsYWJsZRIAGgAaACIA"}],"count":1}
+## `-----------
+
+# Decode key
+
+## ,-----------
+## | / # echo L3JlZ2lzdHJ5L3BlcnNpc3RlbnR2b2x1bWVzL215c3FsMDAx | base64 -d
+## | /registry/persistentvolumes/mysql001/ #
+## `-----------
+
+# Decode value
+
+echo azhzAAoWCgJ2MRIQUGVyc2lzdGVudFZvbHVtZRLzAwqcAwoIbXlzcWwwMDESABoAIgAqJDVhOGJhYzNkLThiMTEtMTFlOC1hOGM4LTA4MDAyN2NiYWVhNDIAOABCCAiYuMDaBRAAWg0KBHR5cGUSBWxvY2FsYqcCCjBrdWJlY3RsLmt1YmVybmV0ZXMuaW8vbGFzdC1hcHBsaWVkLWNvbmZpZ3VyYXRpb24S8gF7ImFwaVZlcnNpb24iOiJ2MSIsImtpbmQiOiJQZXJzaXN0ZW50Vm9sdW1lIiwibWV0YWRhdGEiOnsiYW5ub3RhdGlvbnMiOnt9LCJsYWJlbHMiOnsidHlwZSI6ImxvY2FsIn0sIm5hbWUiOiJteXNxbDAwMSIsIm5hbWVzcGFjZSI6IiJ9LCJzcGVjIjp7ImFjY2Vzc01vZGVzIjpbIlJlYWRXcml0ZU9uY2UiXSwiY2FwYWNpdHkiOnsic3RvcmFnZSI6IjVHaSJ9LCJob3N0UGF0aCI6eyJwYXRoIjoiL2RhdGEvbXlzcWwwMDEifX19CnIba3ViZXJuZXRlcy5pby9wdi1wcm90ZWN0aW9uegASQQoQCgdzdG9yYWdlEgUKAzVHaRIUGhIKDi9kYXRhL215c3FsMDAxEgAaDVJlYWRXcml0ZU9uY2UqBlJldGFpbjIAGg8KCUF2YWlsYWJsZRIAGgAaACIA | base64 -d
+
+## ,-----------
+## | / # echo azhzAAoWCgJ2MRIQUGVyc2lzdGVudFZvbHVtZRLzAwqcAwoIbXlzcWwwMDESABoAIgAqJDV
+## | hOGJhYzNkLThiMTEtMTFlOC1hOGM4LTA4MDAyN2NiYWVhNDIAOABCCAiYuMDaBRAAWg0KBHR5cGUSBWx
+## | vY2FsYqcCCjBrdWJlY3RsLmt1YmVybmV0ZXMuaW8vbGFzdC1hcHBsaWVkLWNvbmZpZ3VyYXRpb24S8gF
+## | 7ImFwaVZlcnNpb24iOiJ2MSIsImtpbmQiOiJQZXJzaXN0ZW50Vm9sdW1lIiwibWV0YWRhdGEiOnsiYW5
+## | ub3RhdGlvbnMiOnt9LCJsYWJlbHMiOnsidHlwZSI6ImxvY2FsIn0sIm5hbWUiOiJteXNxbDAwMSIsIm5
+## | hbWVzcGFjZSI6IiJ9LCJzcGVjIjp7ImFjY2Vzc01vZGVzIjpbIlJlYWRXcml0ZU9uY2UiXSwiY2FwYWN
+## | pdHkiOnsic3RvcmFnZSI6IjVHaSJ9LCJob3N0UGF0aCI6eyJwYXRoIjoiL2RhdGEvbXlzcWwwMDEifX1
+## | 9CnIba3ViZXJuZXRlcy5pby9wdi1wcm90ZWN0aW9uegASQQoQCgdzdG9yYWdlEgUKAzVHaRIUGhIKDi9
+## | kYXRhL215c3FsMDAxEgAaDVJlYWRXcml0ZU9uY2UqBlJldGFpbjIAGg8KCUF2YWlsYWJsZRIAGgAaACI
+## | A | base64 -d
+## | k8s
+## | 
+## | v1PersistentVolume
+## | 
+## | mysql001"*$5a8bac3d-8b11-11e8-a8c8-080027cbaea42ZB
+## | typelocalb
+## | 0kubectl.kubernetes.io/last-applied-configuration{"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"labels":{"type":"local"},"name":"mysql001","namespace":""},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"5Gi"},"hostPath":{"path":"/data/mysql001"}}}
+## | r
+## | ReadWriteOnce*Retain2
+## |         Available"/ #
+## `-----------
+```
+
+- Check pvc
+
+```
+ETCDCTL_API=3 $command_prefix get /registry/persistentvolumeclaims/ns-test/mysql001-1 -w=json
+
+## ,-----------
+## | / # ETCDCTL_API=3 $command_prefix get /registry/persistentvolumeclaims/ns-test/mysql001-1 -w=json
+## | 2018-07-19 05:38:27.400400 I | warning: ignoring ServerName for user-provided CA for backwards compatibility is deprecated
+## | {"header":{"cluster_id":14841639068965178418,"member_id":10276657743932975437,"revision":269530,"raft_term":3},"kvs":[{"key":"L3JlZ2lzdHJ5L3BlcnNpc3RlbnR2b2x1bWVjbGFpbXMvbnMtdGVzdC9teXNxbDAwMS0x","create_revision":267296,"mod_revision":267388,"version":21,"value":"azhzAAobCgJ2MRIVUGVyc2lzdGVudFZvbHVtZUNsYWltEvsGCvUFCgpteXNxbDAwMS0xEgAaB25zLXRlc3QiACokNWE5NDllNTEtOGIxMS0xMWU4LWE4YzgtMDgwMDI3Y2JhZWE0MgA4AEIICJi4wNoFEABi3gEKKGNvbnRyb2wtcGxhbmUuYWxwaGEua3ViZXJuZXRlcy5pby9sZWFkZXISsQF7ImhvbGRlcklkZW50aXR5IjoiMzkwNDJjYjItODllMi0xMWU4LTlkZWEtMDgwMDI3Y2JhZWE0IiwibGVhc2VEdXJhdGlvblNlY29uZHMiOjE1LCJhY3F1aXJlVGltZSI6IjIwMTgtMDctMTlUMDU6MDU6MjhaIiwicmVuZXdUaW1lIjoiMjAxOC0wNy0xOVQwNTowNTo1OVoiLCJsZWFkZXJUcmFuc2l0aW9ucyI6MH1ihAIKMGt1YmVjdGwua3ViZXJuZXRlcy5pby9sYXN0LWFwcGxpZWQtY29uZmlndXJhdGlvbhLPAXsiYXBpVmVyc2lvbiI6InYxIiwia2luZCI6IlBlcnNpc3RlbnRWb2x1bWVDbGFpbSIsIm1ldGFkYXRhIjp7ImFubm90YXRpb25zIjp7fSwibmFtZSI6Im15c3FsMDAxLTEiLCJuYW1lc3BhY2UiOiJucy10ZXN0In0sInNwZWMiOnsiYWNjZXNzTW9kZXMiOlsiUmVhZFdyaXRlT25jZSJdLCJyZXNvdXJjZXMiOnsicmVxdWVzdHMiOnsic3RvcmFnZSI6IjVHaSJ9fX19CmImCh9wdi5rdWJlcm5ldGVzLmlvL2JpbmQtY29tcGxldGVkEgN5ZXNiKwokcHYua3ViZXJuZXRlcy5pby9ib3VuZC1ieS1jb250cm9sbGVyEgN5ZXNiSQotdm9sdW1lLmJldGEua3ViZXJuZXRlcy5pby9zdG9yYWdlLXByb3Zpc2lvbmVyEhhrOHMuaW8vbWluaWt1YmUtaG9zdHBhdGhyHGt1YmVybmV0ZXMuaW8vcHZjLXByb3RlY3Rpb256ABJXCg1SZWFkV3JpdGVPbmNlEhISEAoHc3RvcmFnZRIFCgM1R2kaKHB2Yy01YTk0OWU1MS04YjExLTExZTgtYThjOC0wODAwMjdjYmFlYTQqCHN0YW5kYXJkGigKBUJvdW5kEg1SZWFkV3JpdGVPbmNlGhAKB3N0b3JhZ2USBQoDNUdpGgAiAA=="}],"count":1}
+## | / #
+## `-----------
+
+# Decode key
+## ,-----------
+## | / # echo L3JlZ2lzdHJ5L3BlcnNpc3RlbnR2b2x1bWVjbGFpbXMvbnMtdGVzdC9teXNxbDAwMS0x | base64 -d
+## | /registry/persistentvolumeclaims/ns-test/mysql001-1/ #
+## `-----------
+
+# Decode value
+
+## ,-----------
+## | / # echo "azhzAAoPCgJ2MRIJTmFtZXNwYWNlEvwBCuEBCgducy10ZXN0EgAaACIAKiQ1YTgxNWQyYy
+## | 04YjExLTExZTgtYThjOC0wODAwMjdjYmFlYTQyADgAQggImLjA2gUQAGKZAQowa3ViZWN0bC5rdWJlcm
+## | 5ldGVzLmlvL2xhc3QtYXBwbGllZC1jb25maWd1cmF0aW9uEmV7ImFwaVZlcnNpb24iOiJ2MSIsImtpbm
+## | QiOiJOYW1lc3BhY2UiLCJtZXRhZGF0YSI6eyJhbm5vdGF0aW9ucyI6e30sIm5hbWUiOiJucy10ZXN0Ii
+## | wibmFtZXNwYWNlIjoiIn19CnoAEgwKCmt1YmVybmV0ZXMaCAoGQWN0aXZlGgAiAA==" | base64 -d
+## | k8s
+## | 
+## | v1      Namespace
+## | 
+## | ns-test"*$5a815d2c-8b11-11e8-a8c8-080027cbaea42bB
+## | 0kubectl.kubernetes.io/last-applied-configuratione{"apiVersion":"v1","kind":"Namespace","metadata":{"annotations":{},"name":"ns-test","namespace":""}}
+## | z
+## | 
+## | 
+## | kubernetes
+## | Active"/ #
+## `-----------
+```
+From above, we have confirmed whether we create PV or PVC, k8s will store the metatdata in etcd.
 
 # Useful link
 
 ```
+https://stackoverflow.com/questions/47807892/how-to-access-kubernetes-keys-in-etcd
 https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/
+https://github.com/rootsongjc/kubernetes-handbook/blob/master/guide/using-etcdctl-to-access-kubernetes-data.md
 https://coreos.com/etcd/docs/latest/v2/api.html
 https://coreos.com/etcd/docs/latest/dev-guide/interacting_v3.html
-https://stackoverflow.com/questions/47807892/how-to-access-kubernetes-keys-in-etcd
 ```
