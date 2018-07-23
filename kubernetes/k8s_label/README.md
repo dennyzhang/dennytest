@@ -10,6 +10,8 @@ Below will create 2 pv: pv1 and pv2. They are using two different labels: `app=l
 
 Then it will create two pvc, which uses the corresponding volumes by label.
 
+See more: [pv.yaml](https://github.com/dennyzhang/dennytest/blob/master/kubernetes/k8s_label/pv.yaml#L49-L51)
+
 ```
 kubectl apply -f ./pv.yaml
 
@@ -22,7 +24,7 @@ kubectl apply -f ./pv.yaml
 ## | persistentvolumeclaim/pvc2 created
 ## `-----------
 
-- List pv and pvc
+# List pv and pvc
 ## ,-----------
 ## | bash-3.2$ kubectl get -n ns-test pv
 ## | NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM          STORAGECLASS   REASON    AGE
