@@ -9,7 +9,7 @@ Table of Contents
 
 All labels are stored in k8s etcd
 
-https://github.com/dennyzhang/dennytest/tree/master/k8s_etcd
+https://github.com/dennyzhang/dennytest/tree/master/kubernetes/k8s_etcd
 
 # Search Resource by labels
 In below, it will:
