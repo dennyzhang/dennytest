@@ -69,7 +69,7 @@ go build .
 ```
 # Here we use minikube to simplify the tests
 eval $(minikube docker-env)
-# Start watcher
+# Start watcher in one terminal. Let's name it as pvc terminal
 ./pvcwatch
 ```
 
