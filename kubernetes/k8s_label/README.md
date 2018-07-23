@@ -1,3 +1,10 @@
+Table of Contents
+=================
+
+   * [Explore etcd for label storage](#explore-etcd-for-label-storage)
+   * [Search Resource by labels](#search-resource-by-labels)
+   * [Use k8s go client to watch events based on labels](#use-k8s-go-client-to-watch-events-based-on-labels)
+
 # Explore etcd for label storage
 
 All labels are stored in k8s etcd
