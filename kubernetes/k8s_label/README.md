@@ -5,10 +5,9 @@ All labels are stored in k8s etcd
 https://github.com/dennyzhang/dennytest/tree/master/k8s_etcd
 
 # Search Resource by labels
-
-Below will create 2 pv: pv1 and pv2. They are using two different labels: `app=label1` and `app=label2`.
-
-Then it will create two pvc, which uses the corresponding volumes by label.
+In below, it will:
+- Create 2 pv: pv1 and pv2. They are using two different labels: `app=label1` and `app=label2`.
+- Then create two pvc, which use the corresponding volume by labels.
 
 See more: [pv.yaml](https://github.com/dennyzhang/dennytest/blob/master/kubernetes/k8s_label/pv.yaml#L49-L51)
 
@@ -46,6 +45,6 @@ kubectl apply -f ./pv.yaml
 ## `-----------
 ```
 
-# Use Kubernetes go client and watch for events based off of labels
+# Use k8s go client to watch events based on labels
 
 https://hackernoon.com/top-10-kubernetes-tips-and-tricks-27528c2d0222
