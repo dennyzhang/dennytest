@@ -66,8 +66,8 @@ go build .
 
 - Configure context
 
-Here we use minikube
 ```
+# Here we use minikube to simplify the tests
 eval $(minikube docker-env)
 # Start watcher
 ./pvcwatch
