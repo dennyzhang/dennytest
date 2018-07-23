@@ -142,4 +142,6 @@ eval $(minikube docker-env)
 
 https://github.com/kubernetes/client-go
 
+https://github.com/vladimirvivien/k8s-client-examples/tree/master/go
+
 https://hackernoon.com/top-10-kubernetes-tips-and-tricks-27528c2d0222
