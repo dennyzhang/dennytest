@@ -1,0 +1,28 @@
+-*- mode:org; fill-column:70; coding:utf-8; -*-
+* org-mode configuration
+#+STARTUP: overview customtime noalign logdone hidestars
+#+TAGS: ARCHIVE(a) WORK(w) LIFE(l) EMACS(e) IMPORTANT(i) Difficult(d) Communication(c) RECOMMENDATE(r) Tool(t) Habit(h) noexport(n) Share (s) BLOG(b)
+#+SEQ_TODO: TODO HALF ASSIGN | DONE BYPASS DELEGATE CANCELED DEFERRED
+#+DRAWERS: HIDDEN CODE CONF EMAIL WEBPAGE SNIP
+#+PRIORITIES: A D C
+#+ARCHIVE: %s_done::** Finished Tasks
+#+AUTHOR: dennyzhang.com (denny@dennyzhang.com)
+#+OPTIONS: toc:2 \n:t ^:nil creator:nil d:nil
+* Deploy knative on minikube
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
+
+- Install virtualbox, minikube
+- Start cluster
+#+BEGIN_EXAMPLE
+minikube start --memory=8192 --cpus=4 \
+  --kubernetes-version=v1.10.5 \
+  --vm-driver=virtualbox \
+  --bootstrapper=kubeadm \
+  --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
+  --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
+  --extra-config=apiserver.admission-control="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+#+END_EXAMPLE
+** #  --8<-------------------------- separator ------------------------>8-- :noexport:
+** TODO minikube start: is super slow
+** TODO get pods stucks in ContainerCreating state
+** TODO Istio yaml and Knative Serving yaml files are 3K-16.7K lines

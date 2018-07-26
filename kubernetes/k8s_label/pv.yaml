@@ -10,7 +10,7 @@ metadata:
   name: pv1
   labels:
     type: local
-    app: label1
+    mykey: label1
 spec:
   capacity:
     storage: 10Gi
@@ -25,7 +25,7 @@ metadata:
   name: pv2
   labels:
     type: local
-    app: label2
+    mykey: label2
 spec:
   capacity:
     storage: 10Gi
@@ -48,7 +48,7 @@ spec:
       storage: 5Gi
   selector: 
     matchLabels:
-      app: label1
+      mykey: label1
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -63,4 +63,4 @@ spec:
       storage: 6Gi
   selector: 
     matchLabels:
-      app: label2
+      mykey: label2
