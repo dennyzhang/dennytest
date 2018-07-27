@@ -5,7 +5,7 @@ Here we show how to verify wavefront token is valid
 
 https://github.com/wavefrontHQ/python-client
 
-- Start python test env
+## Start python test env
 
 ```
 docker run -t -d --privileged -h mytest --name my-test -v $PWD/client_test.py:/root/client_test.py:rw --entrypoint=/bin/sh "python:2.7"
@@ -13,7 +13,7 @@ docker run -t -d --privileged -h mytest --name my-test -v $PWD/client_test.py:/r
 docker exec -it my-test pip install wavefront-api-client
 ```
 
-- Update credentials
+## Update credentials
 
 Change client_test.py for base_url and api_key. Something like below:
 
@@ -23,7 +23,7 @@ base_url = 'https://try.wavefront.com'
 api_key = 'XXX'
 ```
 
-- Run test
+## Run test
 
 In client_test.py, we have dummy code query wavefront server.
 ```
