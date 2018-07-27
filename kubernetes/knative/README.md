@@ -1,23 +1,23 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#org81c18e6)
-    1.  [SNS link](#org0e32692)
-    2.  [Useful tips](#orge622924)
-    3.  [hello world setup](#org95f5242)
-    4.  [Key Observations](#org4fd2225)
-    5.  [More Resources](#org3af05b9)
+1.  [Deploy knative on minikube](#org5ab9dc2)
+    1.  [SNS link](#orgeb8ab7e)
+    2.  [Useful tips](#org0343036)
+    3.  [hello world setup](#orga52dd4e)
+    4.  [Key Observations](#org391a47c)
+    5.  [More Resources](#orgb65088a)
 
 
 
-<a id="org81c18e6"></a>
+<a id="org5ab9dc2"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="org0e32692"></a>
+<a id="orgeb8ab7e"></a>
 
 ## SNS link
 
@@ -30,7 +30,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 </div>
 
 
-<a id="orge622924"></a>
+<a id="org0343036"></a>
 
 ## Useful tips
 
@@ -93,7 +93,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
      Observed Generation:           1
 
 
-<a id="org95f5242"></a>
+<a id="orga52dd4e"></a>
 
 ## hello world setup
 
@@ -168,7 +168,7 @@ curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
 \`\`\`  
 
 
-<a id="org4fd2225"></a>
+<a id="org391a47c"></a>
 
 ## Key Observations
 
@@ -199,7 +199,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#ins
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
 
 
-<a id="org3af05b9"></a>
+<a id="orgb65088a"></a>
 
 ## More Resources
 
