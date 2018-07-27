@@ -103,7 +103,7 @@ https://github.com/knative/docs/blob/master/serving/samples/helloworld-go/README
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md
 
-```
+#+BEGIN_EXAMPLE
 docker build -t denny/knative:helloworld_go .
 
 docker push denny/knative:helloworld_go
@@ -121,7 +121,8 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
 curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
 
 docker build -t denny/knative:helloworld_go .
-```
+#+END_EXAMPLE
+
 ** DONE minikube start: is super slow: more than 10 minutes
   CLOSED: [2018-07-25 Wed 23:36]
 ** DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
