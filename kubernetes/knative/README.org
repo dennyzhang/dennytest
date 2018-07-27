@@ -7,7 +7,7 @@
 #+AUTHOR: dennyzhang.com (denny@dennyzhang.com)
 #+OPTIONS: toc:2 \n:t ^:nil creator:nil d:nil
 * DONE Deploy knative on minikube
- CLOSED: [2018-07-26 Thu 00:05]
+  CLOSED: [2018-07-27 Fri 10:00]
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 
 ** SNS link
@@ -17,6 +17,8 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 <a href="https://www.dennyzhang.com/slack" target="_blank" rel="nofollow"><img src="http://slack.dennyzhang.com/badge.svg" alt="slack"/></a>
 <a href="https://github.com/DennyZhang"><img align="right" width="200" height="183" src="https://www.dennyzhang.com/wp-content/uploads/denny/watermark/github.png" /></a>
 #+END_HTML
+** basic use
+- Knative requires a Kubernetes cluster v1.10 or newer. kubectl v1.10 is also required.
 
 ** Useful tips
 - kubectl describe services.serving.knative.dev helloworld-go2
