@@ -1,23 +1,23 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#org5ab9dc2)
-    1.  [SNS link](#orgeb8ab7e)
-    2.  [Useful tips](#org0343036)
-    3.  [hello world setup](#orga52dd4e)
-    4.  [Key Observations](#org391a47c)
-    5.  [More Resources](#orgb65088a)
+1.  [Deploy knative on minikube](#orgcb1d4b1)
+    1.  [SNS link](#org3181205)
+    2.  [Useful tips](#org57b2bf1)
+    3.  [hello world setup](#org8e667c1)
+    4.  [Key Observations](#orgf1d6fea)
+    5.  [More Resources](#orgeb232d4)
 
 
 
-<a id="org5ab9dc2"></a>
+<a id="orgcb1d4b1"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="orgeb8ab7e"></a>
+<a id="org3181205"></a>
 
 ## SNS link
 
@@ -30,7 +30,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 </div>
 
 
-<a id="org0343036"></a>
+<a id="org57b2bf1"></a>
 
 ## Useful tips
 
@@ -93,7 +93,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
      Observed Generation:           1
 
 
-<a id="orga52dd4e"></a>
+<a id="org8e667c1"></a>
 
 ## hello world setup
 
@@ -155,20 +155,16 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
 
 -   Get Access IP, since we're using NodePort, instead of loadbalance service
 
-\`\`\`  
-echo \((minikube ip):\)(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')  
-\`\`\`  
+    echo $(minikube ip):$(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md  
 
 -   Validate the service
 
-\`\`\`  
-curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380  
-\`\`\`  
+    curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
 
 
-<a id="org391a47c"></a>
+<a id="orgf1d6fea"></a>
 
 ## Key Observations
 
@@ -199,7 +195,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#ins
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
 
 
-<a id="orgb65088a"></a>
+<a id="orgeb232d4"></a>
 
 ## More Resources
 

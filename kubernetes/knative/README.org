@@ -133,16 +133,17 @@ kubectl get services.serving.knative.dev helloworld-go  -o=custom-columns=NAME:.
 #+END_EXAMPLE
 
 - Get Access IP, since we're using NodePort, instead of loadbalance service
-```
+
+#+BEGIN_EXAMPLE
 echo $(minikube ip):$(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
-```
+#+END_EXAMPLE
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md
 
 - Validate the service
-```
+#+BEGIN_EXAMPLE
 curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
-```
+#+END_EXAMPLE
 
 ** Key Observations
 *** DONE minikube start: is super slow: more than 10 minutes
