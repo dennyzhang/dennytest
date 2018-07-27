@@ -1,24 +1,25 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#org0411349)
-    1.  [Useful tips](#org4ca3bdc)
-    2.  [hello world setup](#org7f3a56e)
-    3.  [minikube start: is super slow: more than 10 minutes](#orgc796c65)
-    4.  [get pods stucks in ContainerCreating state: takes more than 15 minutes](#org6c23833)
-    5.  [knative serving deployment takes more than 5 minutes](#org14cb4a2)
-    6.  [warm-up takes 11 seconds](#org7123b2a)
+1.  [Deploy knative on minikube](#org9fba89a)
+    1.  [Useful tips](#org852f042)
+    2.  [hello world setup](#org8d211b0)
+    3.  [minikube start: is super slow: more than 10 minutes](#org521e425)
+    4.  [get pods stucks in ContainerCreating state: takes more than 15 minutes](#orgab72693)
+    5.  [knative serving deployment takes more than 5 minutes](#org0aa65cf)
+    6.  [warm-up takes 11 seconds](#org559a42d)
+    7.  [More Resources](#org9780bd7)
 
 
 
-<a id="org0411349"></a>
+<a id="org9fba89a"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="org4ca3bdc"></a>
+<a id="org852f042"></a>
 
 ## Useful tips
 
@@ -80,7 +81,7 @@ kubectl get pods -n knative-serving
      Observed Generation:           1
 
 
-<a id="org7f3a56e"></a>
+<a id="org8d211b0"></a>
 
 ## hello world setup
 
@@ -139,22 +140,22 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
     docker build -t denny/knative:helloworld_go .
 
 
-<a id="orgc796c65"></a>
+<a id="org521e425"></a>
 
 ## DONE minikube start: is super slow: more than 10 minutes
 
 
-<a id="org6c23833"></a>
+<a id="orgab72693"></a>
 
 ## DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
 
 
-<a id="org14cb4a2"></a>
+<a id="org0aa65cf"></a>
 
 ## DONE knative serving deployment takes more than 5 minutes
 
 
-<a id="org7123b2a"></a>
+<a id="org559a42d"></a>
 
 ## DONE warm-up takes 11 seconds
 
@@ -164,4 +165,16 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
     real	0m11.426s
     user	0m0.003s
     sys	0m0.001s
+
+
+<a id="org9780bd7"></a>
+
+## More Resources
+
+<div class="HTML">
+<a href="https://www.dennyzhang.com"><img align="right" width="201" height="268" src="https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/denny_201706.png"></a>  
+
+<a href="https://www.dennyzhang.com"><img align="right" src="https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/dns_small.png"></a>  
+
+</div>
 

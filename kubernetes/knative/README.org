@@ -163,3 +163,9 @@ Hello World: Go Sample v4!
 #+END_EXAMPLE
 ** TODO Hard to Trouble: When it's not working, no idea how to debug
 ** TODO After recreating app, the domain field will disappear
+** More Resources
+#+BEGIN_HTML
+<a href="https://www.dennyzhang.com"><img align="right" width="201" height="268" src="https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/denny_201706.png"></a>
+
+<a href="https://www.dennyzhang.com"><img align="right" src="https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/dns_small.png"></a>
+#+END_HTML
