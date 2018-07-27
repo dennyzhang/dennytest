@@ -19,10 +19,11 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 #+END_HTML
 
 ** Useful tips
-kubectl describe services.serving.knative.dev helloworld-go2
+- kubectl describe services.serving.knative.dev helloworld-go2
 
-watch "kubectl get pods -n istio-system; echo "\n"; kubectl get pods -n knative-serving"
-kubectl get pods -n knative-serving
+- watch "kubectl get pods -n istio-system; echo "\n"; kubectl get pods -n knative-serving"
+
+- kubectl get pods -n knative-serving
 
 #+BEGIN_EXAMPLE
  /Users/zdenny  kubectl describe services.serving.knative.dev helloworld-go2                                                                          ✔ 0
@@ -80,6 +81,9 @@ Status:
 ** hello world setup
 *** Install virtualbox, minikube
 *** Start infra
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving
+
+- Start minikube vm
 #+BEGIN_EXAMPLE
 minikube start --memory=8192 --cpus=4 \
   --kubernetes-version=v1.10.5 \
@@ -90,6 +94,7 @@ minikube start --memory=8192 --cpus=4 \
   --extra-config=apiserver.admission-control="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
 #+END_EXAMPLE
 
+- Check status
 #+BEGIN_EXAMPLE
 Every 1.0s: kubectl get pods -n istio-system                                                                                                          zdenny-a02.vmware.com: Wed Jul 25 23:29:20 2018
 
@@ -111,44 +116,57 @@ https://github.com/knative/docs/blob/master/serving/samples/helloworld-go/README
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md
 
+- Build docker image
 #+BEGIN_EXAMPLE
 docker build -t denny/knative:helloworld_go .
 
 docker push denny/knative:helloworld_go
+#+END_EXAMPLE
 
+- Create service
+#+BEGIN_EXAMPLE
 kubectl apply -f service.yaml
 
 kubectl get svc knative-ingressgateway -n istio-system
 
 kubectl get services.serving.knative.dev helloworld-go  -o=custom-columns=NAME:.metadata.name,DOMAIN:.status.domain
+#+END_EXAMPLE
 
-curl -H "Host: helloworld-go.default.example.com" http://10.100.91.133
+- Get Access IP, since we're using NodePort, instead of loadbalance service
+```
+echo $(minikube ip):$(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
+```
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md
 
+- Validate the service
+```
 curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
+```
 
-docker build -t denny/knative:helloworld_go .
-#+END_EXAMPLE
+** Key Observations
+*** DONE minikube start: is super slow: more than 10 minutes
+    CLOSED: [2018-07-25 Wed 23:36]
+*** DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
+    CLOSED: [2018-07-25 Wed 23:35]
+*** DONE knative serving deployment takes more than 5 minutes
+    CLOSED: [2018-07-25 Wed 23:35]
+*** DONE warm-up takes 11 seconds
+    CLOSED: [2018-07-27 Fri 09:38]
+ #+BEGIN_EXAMPLE
+ $ time  curl  -H "Host: helloworld-go4.default.example.com" http://${IP_ADDRESS}
+ Hello World: Go Sample v4!
 
-** DONE minikube start: is super slow: more than 10 minutes
-  CLOSED: [2018-07-25 Wed 23:36]
-** DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
-  CLOSED: [2018-07-25 Wed 23:35]
-** DONE knative serving deployment takes more than 5 minutes
-  CLOSED: [2018-07-25 Wed 23:35]
-** DONE warm-up takes 11 seconds
-  CLOSED: [2018-07-27 Fri 09:38]
-#+BEGIN_EXAMPLE
-$ time  curl  -H "Host: helloworld-go4.default.example.com" http://${IP_ADDRESS}
-Hello World: Go Sample v4!
+ real	0m11.426s
+ user	0m0.003s
+ sys	0m0.001s
+ #+END_EXAMPLE
+*** DONE Istio yaml and Knative Serving yaml files are 3K-16.7K lines
+    CLOSED: [2018-07-27 Fri 09:54]
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-istio
 
-real	0m11.426s
-user	0m0.003s
-sys	0m0.001s
-#+END_EXAMPLE
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving
 ** #  --8<-------------------------- separator ------------------------>8-- :noexport:
-** TODO Istio yaml and Knative Serving yaml files are 3K-16.7K lines
 ** TODO app stucks in PodInitializing for quite a while
 helloworld-go3-00001-autoscaler-69487d9986-bwcqs
 

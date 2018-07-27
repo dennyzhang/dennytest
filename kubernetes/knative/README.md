@@ -1,26 +1,23 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#org21c8fc6)
-    1.  [SNS link](#org2b7d8e6)
-    2.  [Useful tips](#org148fc0b)
-    3.  [hello world setup](#org7802abc)
-    4.  [minikube start: is super slow: more than 10 minutes](#orgb6d78bc)
-    5.  [get pods stucks in ContainerCreating state: takes more than 15 minutes](#org7fda528)
-    6.  [knative serving deployment takes more than 5 minutes](#org7186026)
-    7.  [warm-up takes 11 seconds](#orga472389)
-    8.  [More Resources](#orga12b656)
+1.  [Deploy knative on minikube](#org81c18e6)
+    1.  [SNS link](#org0e32692)
+    2.  [Useful tips](#orge622924)
+    3.  [hello world setup](#org95f5242)
+    4.  [Key Observations](#org4fd2225)
+    5.  [More Resources](#org3af05b9)
 
 
 
-<a id="org21c8fc6"></a>
+<a id="org81c18e6"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="org2b7d8e6"></a>
+<a id="org0e32692"></a>
 
 ## SNS link
 
@@ -33,14 +30,15 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 </div>
 
 
-<a id="org148fc0b"></a>
+<a id="orge622924"></a>
 
 ## Useful tips
 
-kubectl describe services.serving.knative.dev helloworld-go2  
+-   kubectl describe services.serving.knative.dev helloworld-go2
 
-watch "kubectl get pods -n istio-system; echo "\n"; kubectl get pods -n knative-serving"  
-kubectl get pods -n knative-serving  
+-   watch "kubectl get pods -n istio-system; echo "\n"; kubectl get pods -n knative-serving"
+
+-   kubectl get pods -n knative-serving
 
      /Users/zdenny  kubectl describe services.serving.knative.dev helloworld-go2                                                                          ✔ 0
     Name:         helloworld-go2
@@ -95,7 +93,7 @@ kubectl get pods -n knative-serving
      Observed Generation:           1
 
 
-<a id="org7802abc"></a>
+<a id="org95f5242"></a>
 
 ## hello world setup
 
@@ -105,6 +103,10 @@ kubectl get pods -n knative-serving
 
 ### Start infra
 
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
+
+-   Start minikube vm
+
     minikube start --memory=8192 --cpus=4 \
       --kubernetes-version=v1.10.5 \
       --vm-driver=virtualbox \
@@ -112,6 +114,8 @@ kubectl get pods -n knative-serving
       --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
       --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
       --extra-config=apiserver.admission-control="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+
+-   Check status
 
     Every 1.0s: kubectl get pods -n istio-system                                                                                                          zdenny-a02.vmware.com: Wed Jul 25 23:29:20 2018
     
@@ -135,43 +139,50 @@ https://github.com/knative/docs/blob/master/serving/samples/helloworld-go/README
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md  
 
+-   Build docker image
+
     docker build -t denny/knative:helloworld_go .
     
     docker push denny/knative:helloworld_go
-    
+
+-   Create service
+
     kubectl apply -f service.yaml
     
     kubectl get svc knative-ingressgateway -n istio-system
     
     kubectl get services.serving.knative.dev helloworld-go  -o=custom-columns=NAME:.metadata.name,DOMAIN:.status.domain
-    
-    curl -H "Host: helloworld-go.default.example.com" http://10.100.91.133
-    
-    https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md
-    
-    curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
-    
-    docker build -t denny/knative:helloworld_go .
+
+-   Get Access IP, since we're using NodePort, instead of loadbalance service
+
+\`\`\`  
+echo \((minikube ip):\)(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')  
+\`\`\`  
+
+https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md  
+
+-   Validate the service
+
+\`\`\`  
+curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380  
+\`\`\`  
 
 
-<a id="orgb6d78bc"></a>
+<a id="org4fd2225"></a>
 
-## DONE minikube start: is super slow: more than 10 minutes
-
-
-<a id="org7fda528"></a>
-
-## DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
+## Key Observations
 
 
-<a id="org7186026"></a>
-
-## DONE knative serving deployment takes more than 5 minutes
+### DONE minikube start: is super slow: more than 10 minutes
 
 
-<a id="orga472389"></a>
+### DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
 
-## DONE warm-up takes 11 seconds
+
+### DONE knative serving deployment takes more than 5 minutes
+
+
+### DONE warm-up takes 11 seconds
 
     $ time  curl  -H "Host: helloworld-go4.default.example.com" http://${IP_ADDRESS}
     Hello World: Go Sample v4!
@@ -181,7 +192,14 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
     sys	0m0.001s
 
 
-<a id="orga12b656"></a>
+### DONE Istio yaml and Knative Serving yaml files are 3K-16.7K lines
+
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-istio  
+
+https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
+
+
+<a id="org3af05b9"></a>
 
 ## More Resources
 
