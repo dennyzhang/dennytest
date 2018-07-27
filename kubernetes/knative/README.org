@@ -128,6 +128,16 @@ docker build -t denny/knative:helloworld_go .
    CLOSED: [2018-07-25 Wed 23:35]
 ** DONE knative serving deployment takes more than 5 minutes
    CLOSED: [2018-07-25 Wed 23:35]
+** DONE warm-up takes 11 seconds
+   CLOSED: [2018-07-27 Fri 09:38]
+#+BEGIN_EXAMPLE
+$ time  curl  -H "Host: helloworld-go4.default.example.com" http://${IP_ADDRESS}
+Hello World: Go Sample v4!
+
+real	0m11.426s
+user	0m0.003s
+sys	0m0.001s
+#+END_EXAMPLE
 ** TODO app stucks in PodInitializing for quite a while
 helloworld-go3-00001-autoscaler-69487d9986-bwcqs
 
