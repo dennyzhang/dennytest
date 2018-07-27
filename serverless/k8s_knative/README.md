@@ -1,23 +1,25 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#org605690b)
-    1.  [SNS link](#org973fafd)
-    2.  [Useful tips](#org25bddda)
-    3.  [hello world setup](#org140ec3a)
-    4.  [Key Observations](#orgcd48215)
-    5.  [More Resources](#org6478f82)
+1.  [Deploy knative on minikube](#orgf607ccd)
+    1.  [SNS link](#org2f9e0d7)
+    2.  [basic use](#orgd1aea6a)
+    3.  [Benefits](#org720fabd)
+    4.  [Useful tips](#orgf8b3446)
+    5.  [hello world setup](#orgd1ee56f)
+    6.  [Key Observations](#orgc6f5172)
+    7.  [More Resources](#orga787f7d)
 
 
 
-<a id="org605690b"></a>
+<a id="orgf607ccd"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="org973fafd"></a>
+<a id="org2f9e0d7"></a>
 
 ## SNS link
 
@@ -30,7 +32,31 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 </div>
 
 
-<a id="org25bddda"></a>
+<a id="orgd1aea6a"></a>
+
+## basic use
+
+-   Knative requires a Kubernetes cluster v1.10 or newer. kubectl v1.10 is also required.
+
+The following Knative components are currently available:  
+
+-   Build - Source-to-container build orchestration
+-   Eventing - Management and delivery of events
+-   Serving - Request-driven compute that can scale to zero
+
+
+<a id="org720fabd"></a>
+
+## Benefits
+
+Benefits from severless:  
+
+-   Cost saving: Infra will be shutdown if no requests
+-   Minimum maintainance: Infra and application is decoupled, and SRE effort are delegated
+-   Serve different version of one API
+
+
+<a id="orgf8b3446"></a>
 
 ## Useful tips
 
@@ -93,7 +119,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
          Observed Generation:           1
 
 
-<a id="org140ec3a"></a>
+<a id="orgd1ee56f"></a>
 
 ## hello world setup
 
@@ -164,7 +190,7 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
         curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
 
 
-<a id="orgcd48215"></a>
+<a id="orgc6f5172"></a>
 
 ## Key Observations
 
@@ -195,7 +221,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#ins
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
 
 
-<a id="org6478f82"></a>
+<a id="orga787f7d"></a>
 
 ## More Resources
 

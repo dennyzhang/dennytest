@@ -20,6 +20,16 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 ** basic use
 - Knative requires a Kubernetes cluster v1.10 or newer. kubectl v1.10 is also required.
 
+The following Knative components are currently available:
+
+- Build - Source-to-container build orchestration
+- Eventing - Management and delivery of events
+- Serving - Request-driven compute that can scale to zero
+** Benefits
+Benefits from severless:
+- Cost saving: Infra will be shutdown if no requests
+- Minimum maintainance: Infra and application is decoupled, and SRE effort are delegated
+- Serve different version of one API
 ** Useful tips
 - kubectl describe services.serving.knative.dev helloworld-go2
 
