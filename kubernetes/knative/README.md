@@ -1,25 +1,39 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#org9fba89a)
-    1.  [Useful tips](#org852f042)
-    2.  [hello world setup](#org8d211b0)
-    3.  [minikube start: is super slow: more than 10 minutes](#org521e425)
-    4.  [get pods stucks in ContainerCreating state: takes more than 15 minutes](#orgab72693)
-    5.  [knative serving deployment takes more than 5 minutes](#org0aa65cf)
-    6.  [warm-up takes 11 seconds](#org559a42d)
-    7.  [More Resources](#org9780bd7)
+1.  [Deploy knative on minikube](#org21c8fc6)
+    1.  [SNS link](#org2b7d8e6)
+    2.  [Useful tips](#org148fc0b)
+    3.  [hello world setup](#org7802abc)
+    4.  [minikube start: is super slow: more than 10 minutes](#orgb6d78bc)
+    5.  [get pods stucks in ContainerCreating state: takes more than 15 minutes](#org7fda528)
+    6.  [knative serving deployment takes more than 5 minutes](#org7186026)
+    7.  [warm-up takes 11 seconds](#orga472389)
+    8.  [More Resources](#orga12b656)
 
 
 
-<a id="org9fba89a"></a>
+<a id="org21c8fc6"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="org852f042"></a>
+<a id="org2b7d8e6"></a>
+
+## SNS link
+
+<div class="HTML">
+<a href="https://www.linkedin.com/in/dennyzhang001"><img src="https://www.dennyzhang.com/wp-content/uploads/sns/linkedin.png" alt="linkedin" /></a>  
+<a href="https://github.com/DennyZhang"><img src="https://www.dennyzhang.com/wp-content/uploads/sns/github.png" alt="github" /></a>  
+<a href="https://www.dennyzhang.com/slack" target="\_blank" rel="nofollow"><img src="http://slack.dennyzhang.com/badge.svg" alt="slack"/></a>  
+<a href="https://github.com/DennyZhang"><img align="right" width="200" height="183" src="https://www.dennyzhang.com/wp-content/uploads/denny/watermark/github.png" /></a>  
+
+</div>
+
+
+<a id="org148fc0b"></a>
 
 ## Useful tips
 
@@ -81,7 +95,7 @@ kubectl get pods -n knative-serving
      Observed Generation:           1
 
 
-<a id="org8d211b0"></a>
+<a id="org7802abc"></a>
 
 ## hello world setup
 
@@ -140,22 +154,22 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
     docker build -t denny/knative:helloworld_go .
 
 
-<a id="org521e425"></a>
+<a id="orgb6d78bc"></a>
 
 ## DONE minikube start: is super slow: more than 10 minutes
 
 
-<a id="orgab72693"></a>
+<a id="org7fda528"></a>
 
 ## DONE get pods stucks in ContainerCreating state: takes more than 15 minutes
 
 
-<a id="org0aa65cf"></a>
+<a id="org7186026"></a>
 
 ## DONE knative serving deployment takes more than 5 minutes
 
 
-<a id="org559a42d"></a>
+<a id="orga472389"></a>
 
 ## DONE warm-up takes 11 seconds
 
@@ -167,7 +181,7 @@ https://github.com/knative/docs/blob/master/install/getting-started-knative-app.
     sys	0m0.001s
 
 
-<a id="org9780bd7"></a>
+<a id="orga12b656"></a>
 
 ## More Resources
 
