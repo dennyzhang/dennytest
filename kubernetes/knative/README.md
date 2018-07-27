@@ -1,23 +1,23 @@
 
 # Table of Contents
 
-1.  [Deploy knative on minikube](#orgcb1d4b1)
-    1.  [SNS link](#org3181205)
-    2.  [Useful tips](#org57b2bf1)
-    3.  [hello world setup](#org8e667c1)
-    4.  [Key Observations](#orgf1d6fea)
-    5.  [More Resources](#orgeb232d4)
+1.  [Deploy knative on minikube](#org605690b)
+    1.  [SNS link](#org973fafd)
+    2.  [Useful tips](#org25bddda)
+    3.  [hello world setup](#org140ec3a)
+    4.  [Key Observations](#orgcd48215)
+    5.  [More Resources](#org6478f82)
 
 
 
-<a id="orgcb1d4b1"></a>
+<a id="org605690b"></a>
 
 # DONE Deploy knative on minikube
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md  
 
 
-<a id="org3181205"></a>
+<a id="org973fafd"></a>
 
 ## SNS link
 
@@ -30,7 +30,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 </div>
 
 
-<a id="org57b2bf1"></a>
+<a id="org25bddda"></a>
 
 ## Useful tips
 
@@ -38,62 +38,62 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 
 -   watch "kubectl get pods -n istio-system; echo "\n"; kubectl get pods -n knative-serving"
 
--   kubectl get pods -n knative-serving
+-   kubectl get pods -n knative-serving  
+    
+         /Users/zdenny  kubectl describe services.serving.knative.dev helloworld-go2                                                                          ✔ 0
+        Name:         helloworld-go2
+        Namespace:    default
+        Labels:       <none>
+        Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"serving.knative.dev/v1alpha1","kind":"Service","metadata":{"annotations":{},"name":"helloworld-go2","namespace":"default"},"spec":{"runL...
+        API Version:  serving.knative.dev/v1alpha1
+        Kind:         Service
+        Metadata:
+         Cluster Name:
+         Creation Timestamp:  2018-07-26T06:50:32Z
+         Generation:          1
+         Resource Version:    4814
+         Self Link:           /apis/serving.knative.dev/v1alpha1/namespaces/default/services/helloworld-go2
+         UID:                 313a146e-90a0-11e8-b2c6-080027a8db9e
+        Spec:
+         Generation:  1
+         Run Latest:
+           Configuration:
+             Revision Template:
+               Metadata:
+                 Creation Timestamp:  <nil>
+               Spec:
+                 Concurrency Model:  Multi
+                 Container:
+                   Env:
+                     Name:   TARGET
+                     Value:  Go Sample v2
+                   Image:    docker.io/denny/helloworld-go
+                   Name:
+                   Resources:
+        Status:
+         Conditions:
+           Last Transition Time:        2018-07-26T06:50:34Z
+           Message:                     Revision "helloworld-go2-00001" failed with message: "UNAUTHORIZED: \"authentication required\"".
+           Reason:                      RevisionFailed
+           Status:                      False
+           Type:                        ConfigurationsReady
+           Last Transition Time:        2018-07-26T06:50:53Z
+           Message:                     Configuration "helloworld-go2" does not have any ready Revision.
+           Reason:                      RevisionMissing
+           Status:                      False
+           Type:                        RoutesReady
+           Last Transition Time:        2018-07-26T06:51:23Z
+           Message:                     Configuration "helloworld-go2" does not have any ready Revision.
+           Reason:                      RevisionMissing
+           Status:                      False
+           Type:                        Ready
+         Domain:                        helloworld-go2.default.example.com
+         Domain Internal:               helloworld-go2.default.svc.cluster.local
+         Latest Created Revision Name:  helloworld-go2-00001
+         Observed Generation:           1
 
-     /Users/zdenny  kubectl describe services.serving.knative.dev helloworld-go2                                                                          ✔ 0
-    Name:         helloworld-go2
-    Namespace:    default
-    Labels:       <none>
-    Annotations:  kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"serving.knative.dev/v1alpha1","kind":"Service","metadata":{"annotations":{},"name":"helloworld-go2","namespace":"default"},"spec":{"runL...
-    API Version:  serving.knative.dev/v1alpha1
-    Kind:         Service
-    Metadata:
-     Cluster Name:
-     Creation Timestamp:  2018-07-26T06:50:32Z
-     Generation:          1
-     Resource Version:    4814
-     Self Link:           /apis/serving.knative.dev/v1alpha1/namespaces/default/services/helloworld-go2
-     UID:                 313a146e-90a0-11e8-b2c6-080027a8db9e
-    Spec:
-     Generation:  1
-     Run Latest:
-       Configuration:
-         Revision Template:
-           Metadata:
-             Creation Timestamp:  <nil>
-           Spec:
-             Concurrency Model:  Multi
-             Container:
-               Env:
-                 Name:   TARGET
-                 Value:  Go Sample v2
-               Image:    docker.io/denny/helloworld-go
-               Name:
-               Resources:
-    Status:
-     Conditions:
-       Last Transition Time:        2018-07-26T06:50:34Z
-       Message:                     Revision "helloworld-go2-00001" failed with message: "UNAUTHORIZED: \"authentication required\"".
-       Reason:                      RevisionFailed
-       Status:                      False
-       Type:                        ConfigurationsReady
-       Last Transition Time:        2018-07-26T06:50:53Z
-       Message:                     Configuration "helloworld-go2" does not have any ready Revision.
-       Reason:                      RevisionMissing
-       Status:                      False
-       Type:                        RoutesReady
-       Last Transition Time:        2018-07-26T06:51:23Z
-       Message:                     Configuration "helloworld-go2" does not have any ready Revision.
-       Reason:                      RevisionMissing
-       Status:                      False
-       Type:                        Ready
-     Domain:                        helloworld-go2.default.example.com
-     Domain Internal:               helloworld-go2.default.svc.cluster.local
-     Latest Created Revision Name:  helloworld-go2-00001
-     Observed Generation:           1
 
-
-<a id="org8e667c1"></a>
+<a id="org140ec3a"></a>
 
 ## hello world setup
 
@@ -105,32 +105,32 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md
 
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
 
--   Start minikube vm
-
-    minikube start --memory=8192 --cpus=4 \
-      --kubernetes-version=v1.10.5 \
-      --vm-driver=virtualbox \
-      --bootstrapper=kubeadm \
-      --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
-      --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
-      --extra-config=apiserver.admission-control="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
-
--   Check status
-
-    Every 1.0s: kubectl get pods -n istio-system                                                                                                          zdenny-a02.vmware.com: Wed Jul 25 23:29:20 2018
+-   Start minikube vm  
     
-    NAME                                       READY     STATUS      RESTARTS   AGE
-    istio-citadel-7bdc7775c7-ssdkj             1/1       Running     0          15m
-    istio-cleanup-old-ca-gw2sk                 0/1       Completed   0          15m
-    istio-egressgateway-795fc9b47-hsqrd        1/1       Running     0          15m
-    istio-ingress-84659cf44c-5vtzd             1/1       Running     0          15m
-    istio-ingressgateway-7d89dbf85f-nkcbc      1/1       Running     0          15m
-    istio-mixer-post-install-cjxsx             0/1       Completed   0          15m
-    istio-pilot-66f4dd866c-5q7kv               2/2       Running     0          15m
-    istio-policy-76c8896799-29trn              2/2       Running     0          15m
-    istio-sidecar-injector-645c89bc64-mv99l    1/1       Running     0          15m
-    istio-statsd-prom-bridge-949999c4c-rqngn   1/1       Running     0          15m
-    istio-telemetry-6554768879-mjqjw           2/2       Running     0          15m
+        minikube start --memory=8192 --cpus=4 \
+          --kubernetes-version=v1.10.5 \
+          --vm-driver=virtualbox \
+          --bootstrapper=kubeadm \
+          --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
+          --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
+          --extra-config=apiserver.admission-control="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+
+-   Check status  
+    
+        Every 1.0s: kubectl get pods -n istio-system                                                                                                          zdenny-a02.vmware.com: Wed Jul 25 23:29:20 2018
+        
+        NAME                                       READY     STATUS      RESTARTS   AGE
+        istio-citadel-7bdc7775c7-ssdkj             1/1       Running     0          15m
+        istio-cleanup-old-ca-gw2sk                 0/1       Completed   0          15m
+        istio-egressgateway-795fc9b47-hsqrd        1/1       Running     0          15m
+        istio-ingress-84659cf44c-5vtzd             1/1       Running     0          15m
+        istio-ingressgateway-7d89dbf85f-nkcbc      1/1       Running     0          15m
+        istio-mixer-post-install-cjxsx             0/1       Completed   0          15m
+        istio-pilot-66f4dd866c-5q7kv               2/2       Running     0          15m
+        istio-policy-76c8896799-29trn              2/2       Running     0          15m
+        istio-sidecar-injector-645c89bc64-mv99l    1/1       Running     0          15m
+        istio-statsd-prom-bridge-949999c4c-rqngn   1/1       Running     0          15m
+        istio-telemetry-6554768879-mjqjw           2/2       Running     0          15m
 
 
 ### Deploy a sample application
@@ -139,32 +139,32 @@ https://github.com/knative/docs/blob/master/serving/samples/helloworld-go/README
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md  
 
--   Build docker image
-
-    docker build -t denny/knative:helloworld_go .
+-   Build docker image  
     
-    docker push denny/knative:helloworld_go
+        docker build -t denny/knative:helloworld_go .
+        
+        docker push denny/knative:helloworld_go
 
--   Create service
-
-    kubectl apply -f service.yaml
+-   Create service  
     
-    kubectl get svc knative-ingressgateway -n istio-system
+        kubectl apply -f service.yaml
+        
+        kubectl get svc knative-ingressgateway -n istio-system
+        
+        kubectl get services.serving.knative.dev helloworld-go  -o=custom-columns=NAME:.metadata.name,DOMAIN:.status.domain
+
+-   Get Access IP, since we're using NodePort, instead of loadbalance service  
     
-    kubectl get services.serving.knative.dev helloworld-go  -o=custom-columns=NAME:.metadata.name,DOMAIN:.status.domain
-
--   Get Access IP, since we're using NodePort, instead of loadbalance service
-
-    echo $(minikube ip):$(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
+        echo $(minikube ip):$(kubectl get svc knative-ingressgateway -n istio-system -o 'jsonpath={.spec.ports[?(@.port==80)].nodePort}')
 
 https://github.com/knative/docs/blob/master/install/getting-started-knative-app.md  
 
--   Validate the service
+-   Validate the service  
+    
+        curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
 
-    curl -I -H "Host: helloworld-go.default.example.com" http://10.0.2.15:32380
 
-
-<a id="orgf1d6fea"></a>
+<a id="orgcd48215"></a>
 
 ## Key Observations
 
@@ -195,7 +195,7 @@ https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#ins
 https://github.com/knative/docs/blob/master/install/Knative-with-Minikube.md#installing-knative-serving  
 
 
-<a id="orgeb232d4"></a>
+<a id="org6478f82"></a>
 
 ## More Resources
 
