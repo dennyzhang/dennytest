@@ -15,7 +15,11 @@
 <a href="https://github.com/DennyZhang"><img align="right" width="200" height="183" src="https://www.dennyzhang.com/wp-content/uploads/denny/watermark/github.png" /></a>
 #+END_HTML
 ** basic use
-http://big.ly/apigee-NEXT
+http://bit.ly/apigee-NEXT
+
+openAPI
+
+WSGi
 ** More Resources
 #+BEGIN_HTML
 <a href="https://www.dennyzhang.com"><img align="right" width="201" height="268" src="https://raw.githubusercontent.com/USDevOps/mywechat-slack-group/master/images/denny_201706.png"></a>
