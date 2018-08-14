@@ -1,9 +1,10 @@
+# Summary
 In one shared VM, we might won't user1 to mount volume of user2
 
-How we can achieve that?
+# Details
+How we can achieve that? Two different directions:
 
-Two different directions:
-- Docker-in-Docker
+1. Docker-in-Docker
 ![../../images/docker-volume.png](../../images/docker-volume.png)
 
-- ABBA support for volumes
+2. ABBA support for volumes
