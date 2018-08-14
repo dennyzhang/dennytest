@@ -8,6 +8,8 @@ How we can achieve that? Two different directions:
 
 https://forums.docker.com/t/how-to-run-docker-inside-a-container-running-on-docker-for-mac/16268
 
+https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
+
 ![../../images/docker-volume.png](../../images/docker-volume.png)
 
 2. ABAC support for volumes
