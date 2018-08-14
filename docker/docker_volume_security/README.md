@@ -6,6 +6,8 @@ How we can achieve that? Two different directions:
 
 1. Docker-in-Docker
 
+https://forums.docker.com/t/how-to-run-docker-inside-a-container-running-on-docker-for-mac/16268
+
 ![../../images/docker-volume.png](../../images/docker-volume.png)
 
 2. ABAC support for volumes
