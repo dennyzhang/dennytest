@@ -15,6 +15,8 @@ How we can achieve that?
 
 ## Docker-in-Docker with sock file mounted
 
+https://getintodevops.com/blog/the-simple-way-to-run-docker-in-docker-for-ci
+
 https://forums.docker.com/t/how-to-run-docker-inside-a-container-running-on-docker-for-mac/16268
 
 https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
@@ -23,6 +25,23 @@ https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
 
 Doesn't work, since inside the container, "docker ps" can see other containers.
 
+```
+docker run --privileged -v /var/run/docker.sock:/var/run/docker.sock --name dockerd-sockfile -d getintodevops/jenkins-withdocker:lts
+docker exec -it dockerd-sockfile sh
+
+docker ps
+
+# With sockfile mounted, inside the container, "docker ps" show all containers. So the segregation doesn't work
+## ,-----------
+## | # docker ps
+## | CONTAINER ID        IMAGE                                  COMMAND                  CREATED             STATUS              PORTS                 NAMES
+## | a7c4bf177510        getintodevops/jenkins-withdocker:lts   "/bin/tini -- /usr..."   2 minutes ago       Up 2 minutes        8080/tcp, 50000/tcp   dockerd-sockfile
+## | 313c165f7041        docker:stable-dind                     "dockerd-entrypoin..."   7 minutes ago       Up 7 minutes        2375/tcp              docker-in-docker
+## | e6a18dd5b461        nginx                                  "/bin/sh"                33 minutes ago      Up 33 minutes       80/tcp                container-outside
+## | 98630c33c253        nginx                                  "/bin/sh"                39 minutes ago      Up 39 minutes       80/tcp                my-nginx
+## `-----------
+```
+
 ## Docker-in-Docker without sock file mounted
 
 https://hub.docker.com/_/docker/
@@ -30,9 +49,8 @@ https://hub.docker.com/_/docker/
 ```
 docker run -t -d -h mytest --name container-outside --entrypoint=/bin/sh "nginx"
 
-# Here we use --privileged, in real deployment, we don't have to
-docker run --privileged --name some-docker -d docker:stable-dind
-docker exec -it some-docker sh
+docker run --privileged --name docker-in-docker -d docker:stable-dind
+docker exec -it docker-in-docker sh
 
 # Inside the container, start a new container
 docker run -t -d -h mytest --name my-test --entrypoint=/bin/sh "nginx"
