@@ -1,3 +1,12 @@
+Table of Contents
+=================
+
+   * [Summary](#summary)
+   * [Details](#details)
+      * [Docker-in-Docker with sock file mounted](#docker-in-docker-with-sock-file-mounted)
+      * [Docker-in-Docker without sock file mounted](#docker-in-docker-without-sock-file-mounted)
+      * [ABAC support for volumes](#abac-support-for-volumes)
+
 # Summary
 In one shared VM, we might want to avoid user1 mounting volume of user2 for security concerns
 
@@ -19,6 +28,9 @@ Doesn't work, since inside the container, "docker ps" can see other containers.
 https://hub.docker.com/_/docker/
 
 ```
+docker run -t -d -h mytest --name container-outside --entrypoint=/bin/sh "nginx"
+
+# Here we use --privileged, in real deployment, we don't have to
 docker run --privileged --name some-docker -d docker:stable-dind
 docker exec -it some-docker sh
 
@@ -26,6 +38,7 @@ docker exec -it some-docker sh
 docker run -t -d -h mytest --name my-test --entrypoint=/bin/sh "nginx"
 
 docker ps
+## Previously we have started a container(container-outside). Inside current container, docker ps won't show it.
 ## ,-----------
 ## | CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 ## | 6ac202f01812        nginx               "/bin/sh"           8 seconds ago       Up 7 seconds        80/tcp              my-test
