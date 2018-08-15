@@ -15,12 +15,6 @@ How we can achieve that?
 
 ## Docker-in-Docker with sock file mounted
 
-https://getintodevops.com/blog/the-simple-way-to-run-docker-in-docker-for-ci
-
-https://forums.docker.com/t/how-to-run-docker-inside-a-container-running-on-docker-for-mac/16268
-
-https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
-
 ![../../images/docker-volume.png](../../images/docker-volume.png)
 
 Doesn't work, since inside the container, "docker ps" can see other containers.
@@ -41,6 +35,12 @@ docker ps
 ## | 98630c33c253        nginx                                  "/bin/sh"                39 minutes ago      Up 39 minutes       80/tcp                my-nginx
 ## `-----------
 ```
+
+https://getintodevops.com/blog/the-simple-way-to-run-docker-in-docker-for-ci
+
+https://forums.docker.com/t/how-to-run-docker-inside-a-container-running-on-docker-for-mac/16268
+
+https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
 
 ## Docker-in-Docker without sock file mounted
 
