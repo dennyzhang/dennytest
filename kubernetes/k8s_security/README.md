@@ -1,6 +1,6 @@
 Start pod and mount dockerd socket file
 
-See [[https://github.com/dennyzhang/dennytest/blob/master/kubernetes/k8s_security/pod.yaml#L14-L20][pod.yaml]]
+See [pod.yaml](https://github.com/dennyzhang/dennytest/blob/master/kubernetes/k8s_security/pod.yaml#L14-L20)
 
 ```
 # start minikube
