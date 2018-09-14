@@ -1,0 +1,40 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: fast
+provisioner: k8s.io/minikube-hostpath
+parameters:
+  type: pd-ssd
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-data
+spec:
+  storageClassName: fast
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dummy
+  namespace: default
+  labels:
+    env: test
+spec:
+  containers:
+  - name: dummy
+    image: ubuntu
+    # image: busybox
+    args: [/bin/sh, -c, 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 1; done']
+    volumeMounts:
+      - name: mysql-persistent-storage
+        mountPath: /my-data
+  volumes:
+  - name: mysql-persistent-storage
+    persistentVolumeClaim:
+      claimName: my-data
