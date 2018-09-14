@@ -9,11 +9,9 @@ kubectl exec -it dummy sh
 
 apt-get install -y jq
 
-# docker ps use a different socker file
+# Inside pod, run "docker ps" with a specific docker socket file
 
 curl -XGET --unix-socket /myrun/docker.sock http://localhost/containers/json | jq
-
-# curl -XGET --unix-socket /myrun/docker.sock http://localhost/containers/json | jq
 
 ## ,----------- Sample Output
 ## | curl -XGET --unix-socket /myrun/docker.sock http://localhost/containers/json | jq
