@@ -13,73 +13,29 @@ apt-get install -y jq
 
 # Inside pod, run "docker ps" with a specific docker socket file
 
-curl -XGET --unix-socket /myrun/docker.sock http://localhost/containers/json | jq
+export DOCKER_HOST=unix:///myrun/docker.sock
+docker ps
 
-## ,----------- Sample Output
-## | curl -XGET --unix-socket /myrun/docker.sock http://localhost/containers/json | jq
-## | 
-## |   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-## |                                  Dload  Upload   Total   Spent    Left  Speed
-## | 100 47019    0 47019    0     0  8426k      0 --:--:-- --:--:-- --:--:-- 9183k
-## | [
-## |   {
-## |     "Id": "919c89751df4f65ad2b2e704db0e83c54c013781f899c6d7403b0d17aed95c4f",
-## |     "Names": [
-## |       "/k8s_dummy_dummy_default_95cf6d7d-b7e2-11e8-a43b-08002779ae1f_0"
-## |     ],
-## |     "Image": "sha256:7f15fe5ed50b65b0c4835db38c5b2a4d30b305695094f26e10b39c7f07081d8d",
-## |     "ImageID": "sha256:7f15fe5ed50b65b0c4835db38c5b2a4d30b305695094f26e10b39c7f07081d8d",
-## |     "Command": "/bin/tini -- /usr/local/bin/jenkins.sh /bin/sh -c 'i=0; while true; do echo \"$i: $(date)\"; i=$((i+1)); sleep 1; done'",
-## |     "Created": 1536904444,
-## |     "Ports": [],
-## |     "Labels": {
-## |       "annotation.io.kubernetes.container.hash": "38f494c3",
-## |       "annotation.io.kubernetes.container.restartCount": "0",
-## |       "annotation.io.kubernetes.container.terminationMessagePath": "/dev/termination-log",
-## |       "annotation.io.kubernetes.container.terminationMessagePolicy": "File",
-## |       "annotation.io.kubernetes.pod.terminationGracePeriod": "30",
-## |       "io.kubernetes.container.logpath": "/var/log/pods/95cf6d7d-b7e2-11e8-a43b-08002779ae1f/dummy/0.log",
-## |       "io.kubernetes.container.name": "dummy",
-## |       "io.kubernetes.docker.type": "container",
-## |       "io.kubernetes.pod.name": "dummy",
-## |       "io.kubernetes.pod.namespace": "default",
-## |       "io.kubernetes.pod.uid": "95cf6d7d-b7e2-11e8-a43b-08002779ae1f",
-## |       "io.kubernetes.sandbox.id": "3ad96f76f804e85220c510898d24d12f25e9ee8ca896aee3107ca5dc0e6cf82c"
-## |     },
-## |     "State": "running",
-## |     "Status": "Up 3 minutes",
-## |     "HostConfig": {
-## |       "NetworkMode": "container:3ad96f76f804e85220c510898d24d12f25e9ee8ca896aee3107ca5dc0e6cf82c"
-## |     },
-## |     "NetworkSettings": {
-## |       "Networks": {}
-## |     },
-## |     "Mounts": [
-## |       {
-## |         "Type": "volume",
-## |         "Name": "d958425923238869fba1b3a92da297bbf835d25c3f7b1b5673fef9c9ef025dfe",
-## |         "Source": "",
-## |         "Destination": "/var/jenkins_home",
-## |         "Driver": "local",
-## |         "Mode": "",
-## |         "RW": true,
-## |         "Propagation": ""
-## |       },
-## |       {
-## |         "Type": "bind",
-## |         "Source": "/var/lib/kubelet/pods/95cf6d7d-b7e2-11e8-a43b-08002779ae1f/volumes/kubernetes.io~secret/default-token-bzv6p",
-## |         "Destination": "/var/run/secrets/kubernetes.io/serviceaccount",
-## |         "Mode": "ro,rslave",
-## |         "RW": false,
-## |         "Propagation": "rslave"
-## |       },
-## |       {
-## |         "Type": "bind",
-## |         "Source": "/var/lib/kubelet/pods/95cf6d7d-b7e2-11e8-a43b-08002779ae1f/containers/dummy/82b08ee8",
-## |         "Destination": "/dev/termination-log",
-## |         "Mode": "",
-## |         "RW": true,
-## |         "Propagation": "rprivate"
-## |       },
+## ,-----------
+## | # docker ps
+## | CONTAINER ID        IMAGE                                      COMMAND                  CREATED             STATUS              PORTS               NAMES
+## | d4c11b1e9ec2        getintodevops/jenkins-withdocker           "/bin/tini -- /usr..."   54 seconds ago      Up 53 seconds                           k8s_dummy_dummy_default_5c6846b0-ba19-11e8-9d98-0800274f164d_0
+## | 9895d02774da        k8s.gcr.io/pause-amd64:3.1                 "/pause"                 4 minutes ago       Up 4 minutes                            k8s_POD_dummy_default_5c6846b0-ba19-11e8-9d98-0800274f164d_0
+## | 2be67e884604        k8s.gcr.io/k8s-dns-sidecar-amd64           "/sidecar --v=2 --..."   2 days ago          Up 2 days                               k8s_sidecar_kube-dns-86f4d74b45-bqj27_kube-system_c575c318-b7ea-11e8-9d98-0800274f164d_0
+## | 29437b39c863        k8s.gcr.io/k8s-dns-dnsmasq-nanny-amd64     "/dnsmasq-nanny -v..."   2 days ago          Up 2 days                               k8s_dnsmasq_kube-dns-86f4d74b45-bqj27_kube-system_c575c318-b7ea-11e8-9d98-0800274f164d_0
+## | 1fa9b08b1b59        gcr.io/k8s-minikube/storage-provisioner    "/storage-provisioner"   2 days ago          Up 2 days                               k8s_storage-provisioner_storage-provisioner_kube-system_c728cae8-b7ea-11e8-9d98-0800274f164d_0
+## | 7f24d8afd70f        k8s.gcr.io/kubernetes-dashboard-amd64      "/dashboard --inse..."   2 days ago          Up 2 days                               k8s_kubernetes-dashboard_kubernetes-dashboard-5498ccf677-6bv8q_kube-system_c66f1afb-b7ea-11e8-9d98-0800274f164d_0
+## | c8003d3c7e07        k8s.gcr.io/metrics-server-amd64            "/metrics-server -..."   2 days ago          Up 2 days                               k8s_metrics-server_metrics-server-85c979995f-9xv8q_kube-system_c68044f8-b7ea-11e8-9d98-0800274f164d_0
+## | a3dce891af3c        k8s.gcr.io/k8s-dns-kube-dns-amd64          "/kube-dns --domai..."   2 days ago          Up 2 days                               k8s_kubedns_kube-dns-86f4d74b45-bqj27_kube-system_c575c318-b7ea-11e8-9d98-0800274f164d_0
+## | 3cddc05c8d2c        k8s.gcr.io/kube-proxy-amd64                "/usr/local/bin/ku..."   2 days ago          Up 2 days                               k8s_kube-proxy_kube-proxy-lv8hp_kube-system_c5397001-b7ea-11e8-9d98-0800274f164d_0
+## | 1256e0ac23bf        k8s.gcr.io/pause-amd64:3.1                 "/pause"                 2 days ago          Up 2 days                               k8s_POD_storage-provisioner_kube-system_c728cae8-b7ea-11e8-9d98-0800274f164d_0
+## | bb26b54aea83        k8s.gcr.io/pause-amd64:3.1                 "/pause"                 2 days ago          Up 2 days                               k8s_POD_metrics-server-85c979995f-9xv8q_kube-system_c68044f8-b7ea-11e8-9d98-0800274f164d_0
+## | 8ed079426794        k8s.gcr.io/pause-amd64:3.1                 "/pause"                 2 days ago          Up 2 days                               k8s_POD_kubernetes-dashboard-5498ccf677-6bv8q_kube-system_c66f1afb-b7ea-11e8-9d98-0800274f164d_0
+## | 1d5ead0ba2f8        k8s.gcr.io/pause-amd64:3.1                 "/pause"                 2 days ago          Up 2 days                               k8s_POD_kube-dns-86f4d74b45-bqj27_kube-system_c575c318-b7ea-11e8-9d98-0800274f164d_0
+## | 86262d45ccfd        k8s.gcr.io/pause-amd64:3.1                 "/pause"                 2 days ago          Up 2 days                               k8s_POD_kube-proxy-lv8hp_kube-system_c5397001-b7ea-11e8-9d98-0800274f164d_0
+## | b738b23b9a24        k8s.gcr.io/kube-controller-manager-amd64   "kube-controller-m..."   2 days ago          Up 2 days                               k8s_kube-controller-manager_kube-controller-manager-minikube_kube-system_a0c286a874b5cc23b80fa6e5452e2316_0
+## | 58c0a10d1a43        k8s.gcr.io/kube-apiserver-amd64            "kube-apiserver --..."   2 days ago          Up 2 days                               k8s_kube-apiserver_kube-apiserver-minikube_kube-system_e644e5cd0a490152a8c0f9c316d474b8_0
+## | 819fb736a44b        k8s.gcr.io/etcd-amd64                      "etcd --trusted-ca..."   2 days ago          Up 2 days                               k8s_etcd_etcd-minikube_kube-system_ec80f8b3827b5447e695a4044668d66b_0
+## | d1c43c83fd22        k8s.gcr.io/kube-addon-manager              "/opt/kube-addons.sh"    2 days ago          Up 2 days                               k8s_kube-addon-manager_kube-addon-manager-minikube_kube-system_3afaf06535cc3b85be93c31632b765da_0
 ## `-----------
 ```
