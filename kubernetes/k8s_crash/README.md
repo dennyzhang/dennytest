@@ -8,6 +8,11 @@ So my question is will /root/test.log still be there, or it’s gone?
 ```
 
 When a Container crashes, kubelet will restart it, but the files will be lost - the Container starts with a clean state
+
+This is different from the docker behavior.
+
+If you run “docker stop/start”, the file will still be there
+
 https://kubernetes.io/docs/concepts/storage/volumes/
 
 ```
