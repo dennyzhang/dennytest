@@ -4,15 +4,6 @@ One interesting question:
 Let’s say I have a Pod with one container inside. The container has created a new file, let’s say /root/test.log
 Then somehow the Pod has crashed. Since I have configured the restart policy, kubelet will restart it.
 
-So my question is will /root/test.log still be there, or it’s gone?
-```
-
-When a Container crashes, kubelet will restart it, but the files will be lost - the Container starts with a clean state
-
-This is different from the docker behavior.
-
-If you run “docker stop/start”, the file will still be there
-
 https://kubernetes.io/docs/concepts/storage/volumes/
 
 ```
@@ -47,4 +38,25 @@ kubectl exec dummy cat /root/test.log
 ## | bash-3.2$ kubectl exec dummy cat /root/test.log
 ## | hello
 ## `-----------
+```
+
+So my question is will /root/test.log still be there, or it’s gone?
+```
+
+When a Container crashes, kubelet will restart it, but the files will be lost - the Container starts with a clean state
+
+This is different from the docker behavior.
+
+If you run “docker stop/start”, the file will still be there
+
+The next question would be why kubelet wants to do the extra work of “reset”?
+
+```
+I don’t know the official answer.
+
+I’m guessing kubernetes assumes pod restart may be scheduled in another worker node.
+
+So it wants the state of the new pod to be totally clean
+
+Put it short: To avoid people abusing the “docker feature”
 ```
