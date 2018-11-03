@@ -12,4 +12,4 @@ client = wave_api.ApiClient(configuration=config, header_name='Authorization', h
 # instantiate source API
 source_api = wave_api.SourceApi(client)
 sources = source_api.get_all_source()
-print sources
+print(sources)
